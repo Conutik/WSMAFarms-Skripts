@@ -26,6 +26,34 @@ on rightclick:
 		set {_n} to "%{_n}% beetroots" parsed as item
 		give {_n} to player
 		cancel event
+on leftclick:
+	if event-block is fully grown potato plant:
+		set block at event-block to freshly planted potato plant
+		set {_n} to random integer between 2 and 5
+		set {_n} to "%{_n}% potatoes" parsed as item
+		give {_n} to player
+		cancel event
+
+	if event-block is fully grown wheat plant:
+		set block at event-block to freshly planted wheat plant
+		set {_n} to random integer between 2 and 5
+		set {_n} to "%{_n}% wheat" parsed as item
+		give {_n} to player
+		cancel event
+
+	if event-block is fully grown carrot plant:
+		set block at event-block to freshly planted carrot plant
+		set {_n} to random integer between 2 and 5
+		set {_n} to "%{_n}% carrot" parsed as item
+		give {_n} to player
+		cancel event
+	
+	if event-block is fully grown beetroot plant:
+		set block at event-block to freshly planted beetroot plant
+		set {_n} to random integer between 2 and 5
+		set {_n} to "%{_n}% beetroots" parsed as item
+		give {_n} to player
+		cancel event
 
 #carrots - 7
 #potatoes - 7
