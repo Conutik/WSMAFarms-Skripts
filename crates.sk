@@ -33,7 +33,7 @@ function crate(p: player, k: text):
     format gui slot 13 of {_p} with {_prize}
     wait 10 ticks
   close {_p}'s inventory
-  send "&a&lCRATES: &eYou Have Opened a(n) %{_k}% key!" to {_p}
+  send "&a&lCRATES: &eYou Have Won %{_prize}% &efrom a %{_k}% key&e!" to {_p}
   give {_p} {_prize}
   remove 1 from {freight::amount::%{_p}'s uuid%}
 
