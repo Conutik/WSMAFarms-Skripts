@@ -1,0 +1,58 @@
+on chat:
+	set chat format to "%player's prefix%%{nick.%player's uuid%}%&7 &8[&b%{level.%player's uuid%}%&8]&7: %{player.chatcolor::%player's uuid%}%%colored message%"
+
+
+command /bal:
+	aliases: balance
+	trigger:
+		send "&bYour current balance is: &e%{balance::%player's uuid%}%"
+
+
+
+
+on join:
+	if {player.chatcolor::%player's uuid%} is not set:
+		set {player.chatcolor::%player's uuid%} to "&7"
+
+on chat:
+	if {player.chatcolor::%player's uuid%} is not set:
+		set {player.chatcolor::%player's uuid%} to "&7"
+
+command /chatcolor:
+    permission: wsma.chatcolor
+    permission message: &cNo permission.
+    trigger:
+        open virtual chest with 1 rows named "&bSelect your chatcolor." to player
+        format gui slot 0 of player with pink dye named "&dPink Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&d"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &dHey!"
+        format gui slot 1 of player with orange dye named "&6Orange Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&6"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &6Hey!"
+        format gui slot 2 of player with lime dye named "&aGreen Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&a"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &aHey!"
+        format gui slot 3 of player with cyan dye named "&3Cyan Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&3"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &3Hey!"
+        format gui slot 4 of player with gray dye named "&7Gray Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&7"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &7Hey!"
+        format gui slot 5 of player with white dye named "&fWhite Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&f"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &fHey!"
+        format gui slot 8 of player with sunflower named "&bReset Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&7"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &7Hey!"
+
+        format gui slot 6 of player with yellow dye named "&eYellow Chatcolor" to run:
+            set {player.chatcolor::%player's uuid%} to "&e"
+            close player's inventory
+            send "&bYour chatcolor will now look like this: &eHey!"

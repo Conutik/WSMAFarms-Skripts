@@ -1,0 +1,495 @@
+
+options:
+    prefix: &a&lUPGRADES &8»
+
+
+
+on right click:
+	if player is sneaking:
+		player is holding a wooden pickaxe:
+			execute player command "/upgrade"
+
+
+
+
+			format gui slot 12 of player with shiny book named "&eEfficiency 2" to run:
+				close player's inventory
+				send "{@prefix} &7Coming soon."
+			format gui slot 13 of player with shiny book named "&eEfficiency 3" to run:
+				close player's inventory
+				send "{@prefix} &7Coming soon."
+			format gui slot 14 of player with shiny book named "&eEfficiency 4" to run:
+				close player's inventory
+				send "{@prefix} &7Coming soon."
+			format gui slot 15 of player with shiny book named "&eEfficiency 5" to run:
+				close player's inventory
+				send "{@prefix} &7Coming soon."
+
+
+
+
+
+
+on food meter change:
+	cancel event
+
+
+options:
+  prefix: &a&lKITS &8»
+
+on join:
+	{cooldown.vipkit::%player's uuid%} > false
+	{cooldown.mvpkit::%player's uuid%} > false
+	{cooldown.veterankit::%player's uuid%} > false
+	{farmer.%uuid of player%.kit} > false
+	{farmer.%uuid of player%.kit} > false
+
+command /kits:
+  trigger:
+    open virtual chest with 1 rows named "&A&lKITS" to player
+    format gui slot 0,1,2,4,6,7,8 of player with shiny gray stained glass pane named "" to do nothing
+    format gui slot 3 of player with shiny emerald named "&a&lPremium Ranks" to run:
+      open virtual chest with 3 rows named "&a&lPREMIUM KITS" to player
+      format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
+      format gui slot 10 of player with minecart with chest named "&a&lVIP Kit" to run:
+        if player has permission "vip.kit":
+          if {cooldown.vipkit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 1 and unbreaking 2 named "&a&lVIP PICKAXE"
+            give player iron shovel of efficiency 2 and unbreaking 2 named "&a&lVIP PICKAXE"
+            set player's chestplate to iron chestplate of protection 1 named "&a&lVIP CHESTPLATE"
+            set player's boots to iron boots of protection 1 named "&a&lVIP BOOTS"
+            send "{@prefix} &7Selected &a&lVIP &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.vipkit::%player's uuid%} to true
+        else if player does not have permission "vip.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+
+
+      format gui slot 12 of player with minecart with chest named "&b&lMVP Kit" to run:
+        if player has permission "mvp.kit":
+          if {cooldown.mvpkit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 2 and unbreaking 3 named "&b&lMVP PICKAXE"
+            give player iron shovel of efficiency 3 and unbreaking 3 named "&b&lMVP PICKAXE"
+            set player's chestplate to iron chestplate of protection 2 named "&b&lMVP CHESTPLATE"
+            set player's boots to iron boots of protection 2 named "&b&lMVP BOOTS"
+            set player's helmet to iron helmet of protection 2 named "&b&lMVP HELMET"
+            send "{@prefix} &7Selected &b&lMVP &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.mvpkit::%player's uuid%} to true
+        else if player does not have permission "mvp.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+      format gui slot 14 of player with minecart with chest named "&5&lVETERAN Kit" to run:
+        if player has permission "veteran.kit":
+          if {cooldown.veterankit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 3 and unbreaking 4 named "&5&lVETERAN PICKAXE"
+            give player iron shovel of efficiency 4 and unbreaking 4 named "&&5&lVETERAN PICKAXE"
+            set player's chestplate to iron chestplate of protection 3 named "&5&lVETERAN CHESTPLATE"
+            set player's leggings to iron leggings of protection 3 named "&5&lVETERAN LEGGINGS"
+            set player's boots to diamond boots of protection 3 named "&5&lVETERAN BOOTS"
+            set player's helmet to iron helmet of protection 3 named "&5&lVETERAN HELMET"
+            send "{@prefix} &7Selected &5&lVETERAN &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.veterankit::%player's uuid%} to true
+        else if player does not have permission "veteran.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+      format gui slot 16 of player with arrow named "&cBack" to run:
+        close player's inventory
+        execute player command "/kits"
+
+    format gui slot 5 of player with shiny coal named "&7&lDEFAULT KITS" to run:
+      open virtual chest with 3 rows named "&7Default Kits" to player
+      format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
+      format gui slot 10 of player with minecart with chest named "&7&lMINER" to run:
+        if {miner.%uuid of player%.kit} is true:
+          send "{@prefix} &7You are on a cooldown, and cannot use this yet."
+          stop trigger
+        else:
+          give player 1 wooden pickaxe of unbreaking 1 named "&7&lDEFAULT PICKAXE"
+          send "{@prefix} &7Miner kit selected."
+          set {miner.%uuid of player%.kit} to true
+          chance of 15%:
+            add 1 to {level.%player's uuid%}
+            send "&b&lRANKUP! &a&l+ 1 LEVEL"
+      format gui slot 12 of player with minecart with chest named "&7&lFARMER" to run:
+        if {farmer.%uuid of player%.kit} is set:
+          send "{@prefix} &7You are on a cooldown, and cannot use this yet."
+          stop trigger
+        else:
+          give player 1 wooden shovel of unbreaking 1 named "&7&lFARMER SHOVEL"
+          send "{@prefix} &7Farmer kit selected."
+          set {farmer.%uuid of player%.kit} to true
+          wait 48 hours
+          set {farmer.%uuid of player%.kit} to false
+          delete {farmer.%uuid of player%.kit}
+
+      format gui slot 16 of player with arrow named "&cBack" to run:
+        close player's inventory
+        execute player command "/kits"
+command test:
+	trigger:
+		send "%{cooldown.vipkit::%player's uuid%}%"
+
+every 24 hours:
+	loop all players:
+		{cooldown.vipkit::%loop-player's uuid%} = true:
+			set {cooldown.vipkit::%loop-player's uuid%} to false
+
+every 24 hours:
+	loop all players:
+		{farmer.%uuid of loop-player%.kit} = true:
+			set {farmer.%uuid of loop-player%.kit} to false
+
+every 24 hours:
+	loop all players:
+		{miner.%uuid of loop-player%.kit}  = true:
+			set {miner.%uuid of loop-player%.kit} to false
+
+every 24 hours:
+	loop all players:
+		{cooldown.veterankit::%loop-player's uuid%} = true:
+			set {cooldown.veterankit::%loop-player's uuid%} to false
+
+every 24 hours:
+	loop all players:
+		{cooldown.mvpkit::%loop-player's uuid%} = true:
+			set {cooldown.mvpkit::%loop-player's uuid%} to false
+
+
+# ------------- Playtime Top Leaderboard -------------
+
+on load:
+    if {ptHoloLoc} is set:
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+        make console execute command "/forceptholo"
+
+command /setptholo:
+    permission: leaderboards.sk
+    trigger:
+        set {ptHoloLoc} to player's location
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+
+command /forceptholo:
+    permission: leaderboards.sk
+    trigger:
+        loop all players:
+            set {playtimeLb::%loop-player%} to {Playtime.minutes::%uuid of loop-player%}
+        loop {playtimeLb::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+        loop {_high.to.low.list::*}:
+            add 1 to {_result}
+            insert line "&a%loop-value parsed as offline player%&8 | &e%{playtimeLb::%loop-value%}%&em" in {ptHolo} at line {_result} + 1 # For design, change this
+            if {_result} is 10:
+                stop
+
+
+# ------------- Balance Top Leaderboard -------------
+
+on load:
+    if {balHoloLoc} is set:
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo}
+        make console execute command "/forcebalholo"
+
+every 10 minutes:
+    make console execute command "/forcebalholo"
+    make console execute command "/forceptholo"
+
+command /deleteholos:
+    permission: leaderboards.sk
+    trigger:
+        delete all holograms
+        if {balHolo} is set:
+            delete {balHolo}
+        if {ptHolo} is set:
+            delete {ptHolo}
+
+command /setbalholo:
+    permission: leaderboards.sk
+    trigger:
+        set {balHoloLoc} to player's location
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo} # For design, change this
+
+on quit:
+    set {balanceLb::%player%} to {balance::%uuid of player%}
+    set {playtimeLb::%player%} to {Playtime.minutes.%uuid of player%}
+
+command /forcebalholo:
+    permission: leaderboards.sk
+    trigger:
+        loop all players:
+            set {balanceLb::%loop-player%} to {balance::%uuid of loop-player%}
+        loop {balanceLb::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo} # For design, change this
+        loop {_high.to.low.list::*}:
+            add 1 to {_result}
+            insert line "&a%loop-value parsed as offline player% &8| &e$%{balanceLb::%loop-value%}%" in {balHolo} at line {_result} + 1 # For design, change this
+            if {_result} is 10:
+                stop
+
+
+command /upgrade:
+  trigger:
+    if player's held item is a pickaxe:
+      open virtual chest with 1 rows named "&a&lEnchant Your Tool" to player
+      format gui slot 0,1,2,4,6,7,8 of player with shiny gray stained glass pane named "" to do nothing
+      format gui slot 5 of player with shiny book named "&a&l+1 &bFortune" with lore "&e$20,000" to run:
+        if level of fortune of player's tool = 5:
+          send "&d&lWSMA&6&lFarms &7| &bYou are at the max enchant for fortune."
+        else:
+          if player's held item is a pickaxe:
+            if {balance::%player's uuid%} > 20000:
+              evaluate "enchant player's tool with fortune %level of fortune of player's tool + 1%"
+              send "&d&lWSMA&6&lFarms &7| &b+1 Fortune."
+            else:
+              send "&d&lWSMA&6&lFarms &7| &bYou do not have enough money for this enchant."
+          else if player's held item is not a pickaxe:
+            send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+      format gui slot 3 of player with shiny book named "&a&l+1 &bEfficiency" with lore "&e$5000" to run:
+        if level of efficiency of player's tool = 8:
+          send "&d&lWSMA&6&lFarms &7| &bYou are at the max enchant for efficiency."
+        else:
+          if player's held item is a pickaxe:
+            if {balance::%player's uuid%} > 5000:
+              evaluate "enchant player's tool with efficiency %level of efficiency of player's tool + 1%"
+              send "&d&lWSMA&6&lFarms &7| &b+1 Efficiency."
+            else:
+              send "&d&lWSMA&6&lFarms &7| &bYou do not have enough money for this enchant."
+          else if player's held item is not a pickaxe:
+            send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+    else if player's held item is not a pickaxe:
+      send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+
+
+on break of coal ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 coal to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 coal to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 coal to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 coal to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 coal to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 coal to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of iron ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 iron ingot to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 iron ingot to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 iron ingot to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 iron ingot to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 iron ingot to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 iron ingot to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of gold ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 gold ingot to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 gold ingot to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 gold ingot to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 gold ingot to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 gold ingot to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 gold ingot to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of diamond ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 diamond to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 diamond to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 diamond to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 diamond to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 diamond to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 diamond to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+command /exchangeores:
+  trigger:
+    set {_coal} to amount of coal in player's inventory
+    add {_coal} to {_total}
+    set {_ironingot} to amount of iron ingot in player's inventory
+    add {_ironingot}*2 to {_total}
+    set {_goldingot} to amount of gold ingot in player's inventory
+    add {_goldingot}*3 to {_total}
+    set {_diamond} to amount of diamond in player's inventory
+    add {_diamond}*4 to {_total}
+    add {_total} to {level.%player's uuid%}
+    remove all coal, iron ingot, gold ingot, diamond from player's inventory
+    send "&d&lWSMA&6&lFarms &7| &bYou exchanged your items for %{_total}% &blevels"
+    wait 1 second
+    set {_total} to 0
+
+#------------------------------------------------------------------
+#POTIONS SHOP
+command /buypotions:
+  trigger:
+    open virtual chest with 3 rows named "&a&lPOTIONS" to player
+    format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
+    format gui slot 10 of player with potion of Swiftness named "&a&lSPEED POSITIONS" to run:
+      open virtual chest with 1 rows named "&a&lSPEED POTIONS" to player
+      format gui slot 0,1,7,8 of player with red stained glass pane named "" to do nothing
+      format gui slot 2 of player with book named "&e&o&lSPEED III FOR 8 MINUTES" with lore "&b$1500" to run:
+        {balance::%player's uuid%} > 1499:
+          close player's inventory
+          wait 1 second
+          apply swiftness 3 to player for 8 minutes
+          send "&bYou have now Speed III for 8 minutes."
+        else:
+          send "&c&oYou dont have enough money to buy this."
+      format gui slot 3 of player with book named "&e&o&lSPEED IIIII FOR 8 MINUTES" with lore "&b$4500" to run:
+        {balance::%player's uuid%} > 4449:
+          close player's inventory
+          wait 1 second
+          apply swiftness 5 to player for 8 minutes
+          send "&bYou have now Speed IIIII for 8 minutes."
+        else:
+          send "&c&oYou dont have enough money to buy this."
+
+      format gui slot 4 of player with shiny book named "&e&o&lSPEED IIIIIII FOR 8 MINUTES" with lore "&b$7500" to run:
+        {balance::%player's uuid%} > 7499:
+          close player's inventory
+          wait 1 second
+          apply swiftness 8 to player for 8 minutes
+          send "&bYou have now Speed IIIIIII for 8 minutes."
+        else:
+          send "&c&oYou dont have enough money to buy this."
+
+#------------------------------------------------------------------
+
+
+options:
+	prefix: &b&lCHALLENGES &8»
+
+command /challenges:
+	trigger:
+		send "{@prefix} &b&oChallenges &7&ois coming soon."
+
+
+#------------------------
+options:
+  prefix: &b&lREWARD &8»
+
+on right click on sign:
+	if 1st line is "Click Here":
+		if {sign.%uuid of player%} is set:
+			send "{@prefix} &7You have already claimed your gift."
+			stop trigger
+		else:
+			{sign.%uuid of player%} is not set:
+				set {sign.%uuid of player%} to true
+				send "{@prefix} &f$500 &a+ &fadded to your account."
+				add 500 to {balance::%player's uuid%}
+				send "{@prefix} &fNew balance: &a%{balance::%player's uuid%}%"
+
+on left click on sign:
+	if 1st line is "Click Here":
+		cancel event

@@ -1,0 +1,142 @@
+options:
+    prefix: &c&lGANGS &8»
+
+
+
+
+command /gang [<text>] [<text>] [<text>]:
+	trigger:
+		arg 1 is not "help" or "invite" or "disband" or "info" or "join" or "create" or "leave":
+			send "{@prefix} &7Wrong usage, type &c&o/gang help"
+		else if arg 1 is "create":
+			if arg 2 contains "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" or "10":
+				send "{@prefix} &7You cant use numbers in the gang name."
+				stop trigger
+			if {gang.%player's uuid%} is set:
+				send "{@prefix} &7You are already in a gang named &e%{gang.%player's uuid%}%&7."
+			else:
+				if {gangown.%arg 2%} is set:
+					send "{@prefix} &7&oThe name &b%arg 2% &7&ois already in use."
+				else:
+					arg 1 is set:
+						arg 2 is set:
+							set {gang.%player's uuid%} to arg 2
+							set {gangmembers.%player's uuid%} to 1
+							set {gangown.%arg 2%} to uuid of the player
+							send "{@prefix} &7You made a gang with the name &e%{gang.%player's uuid%}%"
+							broadcast "{@prefix} %player's prefix%%player's display name% &7made the gang &e%{gang.%player's uuid%}%&7."
+						else:
+							send "{@prefix} &7&oRemember to select a name! Example: &b/gang create Hello"
+
+
+
+
+
+		else if arg 1 is "disband":
+			if arg 2 is "%{gang.%player's uuid%}%":
+				{gangown.%{gang.%player's uuid%}%} is uuid of player:
+					broadcast "{@prefix} %player's prefix%%player's display name% &7disbanded the gang &b%{gang.%player's uuid%}%&7."
+					delete {gangown.%arg 2%}
+					delete {gang.%uuid of player%}
+					delete {gangowner.%{gang.%uuid of player%}%}
+				else:
+					send "{@prefix} &7You are not the leader of this gang."
+			else:
+				send "{@prefix} &6Use /gang disband (gangname)."
+
+
+
+
+		else if arg 1 is "info":
+			if {gang.%player's uuid%} is set:
+				send "{@prefix} &7Name of your gang: &b%{gang.%player's uuid%}%"
+				send "{@prefix} &7Members: &b%{gangmembers.%player's uuid%}%"
+			else:
+				send "{@prefix} &7You are not in a gang."
+
+
+
+
+
+
+
+		else if arg 1 is "invite":
+			arg 1 is set:
+				arg 2 is set:
+					if {gang.%uuid of arg-2 parsed as a player%} is set:
+						send "{@prefix} &b%arg 2% &7is already in a gang and cant be invited."
+					else:
+						if {gang.%uuid of player%} is not set:
+							send "{@prefix} &7You have to be in a gang to do this command."
+						else:
+							if {spamcountdown.%player's uuid%} = false:
+								set {gang.%player's uuid%::invited.%arg 2 parsed as a player%} to true
+								send "{@prefix} &7You invited &b%arg 2 parsed as a player% &7to join &b%{gang.%player's uuid%}%"
+								send "{@prefix} &7You got invited by %player% &7to join the gang &b%{gang.%player's uuid%}%" to arg 2 parsed as a player
+								send "{@prefix} &7To join, use /gang join %{gang.%player's uuid%}%" to arg 2 parsed as a player
+								set {spamcountdown.%player's uuid%} to true
+								wait 5 minutes
+								set {spamcountdown.%player's uuid%} to false
+							else:
+								send "{@prefix} &7You have already invited &b%arg 2 parsed as a player% &7to join your gang. Please wait abit before doing it again."
+
+
+				else:
+					send "{@prefix} &7&oYou have to select a player to invite."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		else if arg 1 is "help":
+			send "{@prefix} &aTo make a gang, use the command &b&o/gang create (name)"
+			send " "
+			send "{@prefix} &aTo leave a gang, use the command &b&o/gang leave (gang)"
+			send " "
+			send "{@prefix} &aTo disband your gang, use the command &b&o/gang disband (gang)"
+			send " "
+			send "{@prefix} &aTo invite your friends, use the command &b&o/gang invite (player)"
+			send title "&a&lTO CREATE A GANG." with subtitle "&b&oUse /gang create (name)" for 5 seconds
+			wait 5 second
+			send title "&a&lTO LEAVE A GANG." with subtitle "&b&oUse /gang leave (gang)" for 5 seconds
+			wait 5 second
+			send title "&a&lTO DISBAND A GANG." with subtitle "&b&oUse /gang disband (gang)" for 5 seconds
+			wait 5 seconds
+			send title "&a&lTO INVITE SOMEONE." with subtitle "&b&oUse /gang invite (player)" for 5 seconds
+
+
+
+
+
+command /deletegang:
+	trigger:
+		delete {gang.%player's uuid%}
+		delete {gangown.%player%}

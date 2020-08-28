@@ -1,0 +1,132 @@
+# ######################################## #
+#            By Death_Source		   #
+#          Made August 27, 2020		   #
+#        	V-1.0.2			   #
+# ######################################## #
+
+#----------------
+#READ ME:
+#----------------
+#DO NOT set the difficulty to peaceful, I use zombies for each balloon!
+#
+#Requirements: Skript, SkQuery, SkBee. Works from Java 1.12-1.16 AND on minehut.
+#
+#If you need help, please DM me on discord: Death_Source#0336
+#
+#Have fun.
+#-----------------
+
+#CONFIGURE HERE
+Options:
+	#The prefix for messages sent!
+	Prefix: &f[&dDeath's Crashy Balloons&f]
+
+#CONSOLE MESSAGE (you can delete if you want)
+on script load:
+	send "{@Prefix}: Successfully loaded V-1.0.1 of Balloons by Death_Source!" to console
+
+#-------------------------------------------------------------------
+
+#CODE
+
+on combust:
+	if event-entity is a zombie:
+		if metadata "balloon" of event-entity is true:
+			cancel event
+
+command /balloon [<text>] [<item>]:
+	permission: balloon
+	trigger:
+		if arg-1 is not set:
+			send "{@Prefix}: &dDo &b/balloon &esmall &a(item name) &dto make a small balloon!"
+			send "{@Prefix}: &dDo &b/balloon &emedium &a(block name) &dto make a medium balloon!"
+			send "{@Prefix}: &dDo &b/balloon &ebig &a(item name) &dto make a big balloon!"
+			send "{@Prefix}: &dDo &b/balloon &edelete &dto get the deleter stick!"
+		if arg-1 is "help":
+			send "{@Prefix}: &dDo &b/balloon &esmall &a(item name) &dto make a small balloon!"
+			send "{@Prefix}: &dDo &b/balloon &emedium &a(item name) &dto make a medium balloon!"
+			send "{@Prefix}: &dDo &b/balloon &ebig &a(item name) &dto make a big balloon!"
+			send "{@Prefix}: &dDo &b/balloon &edelete &dto get the deleter stick!"
+		if arg-1 is "small":
+			if arg-2 is set:
+				if arg-2 contains "_":
+					send "{@Prefix}: &dDon't use &e_ &din your command, use spaces instead!"
+					stop
+				set {_loc} to player's location
+				set {_loc}'s pitch to 22
+				teleport player to {_loc}
+				wait 1 tick
+				spawn a zombie .2 meters above player with nbt "{IsBaby:1,NoGravity:1b,Invulnerable:1,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				set tool of last spawned entity to arg-2
+				set metadata "balloon" of last spawned entity to true
+				spawn a sheep .4 meters above and .1 meters in front of and .3 meters right of player with nbt "{Age:-25000,Invulnerable:1,NoGravity:1b,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				lead last spawned entity to player
+				set metadata "balloon" of last spawned entity to true
+				send "{@Prefix}: &dSmall balloon spawned!"
+		if arg-1 is "medium":
+			if arg-2 is set:
+				if arg-2 contains "_":
+					send "{@Prefix}: &dDon't use &e_ &din your command, use spaces instead!"
+					stop
+				set {_loc} to player's location
+				set {_loc}'s pitch to 22
+				teleport player to {_loc}
+				wait 1 tick
+				spawn a zombie .2 meters above player with nbt "{IsBaby:0,NoGravity:1b,Invulnerable:1,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				set tool of last spawned entity to arg-2
+				set metadata "balloon" of last spawned entity to true
+				spawn a sheep 1 meters above and .2 meters in front of and .3 meters right of player with nbt "{Age:-25000,Invulnerable:1,NoGravity:1b,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				lead last spawned entity to player
+				set metadata "balloon" of last spawned entity to true
+				send "{@Prefix}: &dMedium balloon spawned!"
+		if arg-1 is "big":
+			if arg-2 is set:
+				if arg-2 contains "_":
+					send "{@Prefix}: &dDon't use &e_ &din your command, use spaces instead!"
+					stop
+				set {_loc} to player's location
+				set {_loc}'s pitch to 22
+				teleport player to {_loc}
+				wait 1 tick
+				spawn a giant at player with nbt "{Age:6000,Invulnerable:1,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				set tool of last spawned entity to arg-2
+				set metadata "balloon" of last spawned entity to true
+				spawn a sheep 9 meters above and 4 meters in front of and 2 meters right of player with nbt "{Age:6000,NoGravity:1b,Invulnerable:1,NoGravity:1b,Silent:1,NoAI:1}"
+				Apply potion of invisibility of tier 2 without any particles to last spawned entity for 1000000 seconds
+				lead last spawned entity to player
+				set metadata "balloon" of last spawned entity to true
+				send "{@Prefix}: &dBig balloon spawned!"
+		if arg-1 is "delete":
+			set slot 0 of player to stick named "&rDelete Stick" with lore "&dWack a balloon to remove it!"
+on command "difficulty peaceful" or "minecraft:difficulty peaceful":
+	if {%player%.warn} is true:
+		set {%player%.warned} to false
+		stop
+	else:
+		set {%player%.warn} to true
+		cancel event
+		send "{@Prefix}: &6Be careful! Doing this will remove your balloons!"
+
+on left click:
+	if player is holding a stick named "&rDelete Stick":
+		loop all entities in radius 8 of player:
+			if loop-entity is a sheep or a giant or a zombie:
+				set metadata "balloon" of loop-entity to false
+				kill loop-entity
+				add 1 to {_killed}
+		send "{@Prefix}: &6Removing nearby balloons..." to player
+		wait 5 ticks
+		if {_killed} is set:
+			set {_killed} to {_killed} / 2
+		if {_killed} is not set:
+			set {_killed} to 0
+		send "{@Prefix}: &dDespawned &e%{_killed}% &dballoons!" to player
+on death:
+	if metadata "balloon" of entity is true:
+		cancel event
+			

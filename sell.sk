@@ -1,0 +1,56 @@
+command sellwand:
+  trigger:
+    give player chest of unbreaking 3 named "&e&lSell Chest"
+    send "&aDone"
+
+
+on build:
+  if event-block is chest:
+    if name of event-block is "&e&lSell Chest":
+      wait 10 ticks
+      if event-block is air:
+        stop
+      else:
+        add location of event-block to {sellchests::*}
+        set {sellchest::owner::%location of event-block%} to player's uuid
+        send "&a&lSuccess! &eSell Chest has been placed!"
+
+
+every 5 seconds:
+  loop {sellchests::*}:
+    loop all items in inventory of block at loop-value:
+      set {_money} to 0
+      if {%1 of loop-item%::10} is set:
+        set {_amount} to all loop-item in inventory of block at loop-value
+        set {_multiply} to {_amount} * {%1 of loop-item::10}
+        add {_multiply} to {_money}
+      add {_money} to {balance::%{sellchest::owner::%location of event-block%}%}
+
+
+command /pay [<player>] [<int>]:
+  trigger:
+    if arg 1 is not set:
+      send "&bPlease select an player."
+      stop trigger
+    if arg 1 is set:
+      if arg 2 is not a integer:
+        send "&bYou have to use numbers, example: /pay Liam 100"
+        stop trigger
+    arg 1 is set:
+      arg 2 is a integer:
+        if {balance::%player's uuid%} > arg 2:
+          remove arg 2 from {balance::%player's uuid%}
+          add arg 2 to {balance::%arg 1's uuid%}
+          send "&bYou paid %arg 1% &7> &b%arg 2%"
+          send "&bYou got paid by %player% &7> &b%arg 2%" to arg 1
+        else:
+          send "&bYou dont have enough money."
+
+
+
+command /requestmoney:
+	cooldown: 10 minutes
+	cooldown message: &CPlease wait before using this.
+	trigger:
+		broadcast "&e%player% &bare looking for some money, if you wanna support him use &e/pay %player% (amount)"
+		stop

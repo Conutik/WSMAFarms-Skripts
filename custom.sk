@@ -1,0 +1,900 @@
+command /gmc:
+  permission: gamemode.creative
+  trigger:
+    set player's gamemode to creative
+    send "&d&lWSMA&6&lFarms &7| &bGamemode updated to &ecreative"
+
+command /gms:
+  permission: gamemode.survival
+  trigger:
+    set player's gamemode to survival
+    send "&d&lWSMA&6&lFarms &7| &bGamemode updated to &esurvival"
+
+command /gmsp:
+  permission: gamemode.spectator
+  trigger:
+    set player's gamemode to spectator
+    send "&d&lWSMA&6&lFarms &7| &bGamemode updated to &espectator"
+
+command /butikk:?:
+	trigger:
+		send "&cNo permission."
+
+
+
+
+
+
+command /gma:
+  permission: gamemode.adventure
+  trigger:
+    set player's gamemode to adventure
+    send "&d&lWSMA&6&lFarms &7| &bGamemode updated to &eadventure"
+
+command /mutechat:
+  permission: mute.chat
+  trigger:
+    if {mutechat} is false:
+      set {mutechat} to true
+      send "&d&lWSMA&6&lFarms &7| &bChat has been muted by &e%player%"
+    else if {mutechat} is true:
+      set {mutechat} to false
+      send "&d&lWSMA&6&lFarms &7| &bChat has been unmuted by &e%player%"
+
+on chat:
+  if {mutechat} is true:
+    if player does not have permission "bypass.mutechat":
+      cancel event
+      send "&d&lWSMA&6&lFarms &7| &bChat is muted!"
+
+command /day:
+  permission: time.day
+  trigger:
+    set time to day
+
+command /night:
+  permission: time.night
+  trigger:
+    set time to night
+
+command /sun:
+  permission: weather.sun
+  trigger:
+    set weather to sun
+
+command /rain:
+  permission: weather.rain
+  trigger:
+    set weather to rain
+
+command /tphere <player>:
+  permission: tp.here
+  trigger:
+    teleport arg-1 to player
+    send "&d&lWSMA&6&lFarms &7| &bTeleported &e%arg-1% &bto &e%player%" to player
+
+command /tp <player>:
+  permission: tp.use
+  trigger:
+    teleport player to arg-1
+    send "&d&lWSMA&6&lFarms &7| &bTeleported to &e%arg-1%" to player
+
+command /tpall:
+	permission: tp.all
+	trigger:
+		teleport all players to player
+		send "&d&lWSMA&6&lFarms &7| &bTeleported all players to you" to player
+
+command /gamble:
+  trigger:
+    open chest with 3 rows named "&cGamble" to player
+    format gui slot 11 of player with paper named "&e$10&7,&e000" to run:
+      if {balance::%player's uuid%} is more than or equal to 10000:
+        set {_r} to random integer between 1 and 2
+        if {_r} is 1:
+          send "&d&lWSMA&6&lFarms &7| &bCongrats you won &e$10&7,&e000"
+          add 10000 to {balance::%player's uuid%}
+        else if {_r} is 2:
+          send "&d&lWSMA&6&lFarms &7| &bUnlucky you lost &e$10&7,&e000"
+          remove 10000 from {balance::%player's uuid%}
+      else if {balance::%player's uuid%} is less than 10000:
+        send "&d&lWSMA&6&lFarms &7| &bYou need atleast &e10&7,&e000 &bto use this gamble"
+    format gui slot 13 of player with paper named "&e$1Million" to run:
+      if {balance::%player's uuid%} is more than or equal to 1000000:
+        set {_r} to random integer between 1 and 2
+        if {_r} is 1:
+          send "&d&lWSMA&6&lFarms &7| &bCongrats you won &e$1 Million"
+          add 1000000 to {balance::%player's uuid%}
+        else if {_r} is 2:
+          send "&d&lWSMA&6&lFarms &7| &bUnlucky you lost &e$1 Million"
+          remove 1000000 from {balance::%player's uuid%}
+      else if {balance::%player's uuid%} is less than 1000000:
+        send "&d&lWSMA&6&lFarms &7| &bYou need atleast &e1 Million &bto use this gamble"
+    format gui slot 15 of player with paper named "&e$100&7,&e000" to run:
+      if {balance::%player's uuid%} is more than or equal to 100000:
+        set {_r} to random integer between 1 and 2
+        if {_r} is 1:
+          send "&d&lWSMA&6&lFarms &7| &bCongrats you won &e$100&7,&e000"
+          add 100000 to {balance::%player's uuid%}
+        else if {_r} is 2:
+          send "&d&lWSMA&6&lFarms &7| &bUnlucky you lost &e$100&7,&e000"
+          remove 100000 from {balance::%player's uuid%}
+      else if {balance::%player's uuid%} is less than 100000:
+        send "&d&lWSMA&6&lFarms &7| &bYou need atleast &e100&7,&e000 &bto use this gamble"
+
+command /nick [<text>]:
+  permission: nick.use
+  usage: &d&lWSMA&6&lFarms &7| &cUsage&7: /nick &6&lTest
+  trigger:
+    if arg 1 is not set:
+      send "&d&lWSMA&6&lFarms &7| &cUsage&7: &b/nick Test"
+      stop
+    else if arg-1 is "off":
+
+      set {nick.%player's uuid%} to "%player%"
+      send "&d&lWSMA&6&lFarms &7| &bDisabled your nickname"
+    else:
+      set player's display name to "%colored arg-1%"
+      send "&d&lWSMA&6&lFarms &7| &bChanged your nickname to %colored arg-1%"
+      set {nick.%player's uuid%} to colored arg 1
+
+every 1 second:
+	loop all players:
+		{nick.%loop-player's uuid%} is not set:
+			set {nick.%loop-player's uuid%} to loop-player's display name
+on join:
+	if {level.%player's uuid%} is not set:
+		set {level.%player's uuid%} to 0
+
+command /pl:
+	trigger:
+		send "&cNo permission."
+
+command /plugins:
+	trigger:
+		send "&cNo permission."
+
+command /?:
+	trigger:
+		send "&cNo permission."
+
+command /afk:
+  permission: afk.use
+  trigger:
+    if {afk::%player's uuid%} is false:
+      set {afk::%player's uuid%} to true
+      broadcast "&d&lWSMA&6&lFarms &7| &b%player's display name% &bis now afk"
+    else if {afk::%player's uuid%} is true:
+      set {afk::%player's uuid%} to false
+      broadcast "&d&lWSMA&6&lFarms &7| &b%player's display name% &bis no longer afk"
+
+on any movement:
+  if {afk::%player's uuid%} is true:
+    set {afk::%player's uuid%} to false
+    broadcast "&d&lWSMA&6&lFarms &7| &b%player's display name% &bis no longer afk"
+
+on join:
+  set {afk::%player's uuid%} to false
+
+command /hat:
+  permission: hat.use
+  trigger:
+    set helmet of player to player's held item
+
+command /invsee <player>:
+  permission: inv.see
+  trigger:
+    open arg-1's inventory to player
+
+
+
+#Auto Broadcast
+
+on load:
+	set {autobc} to 1
+
+every 5 minutes:
+	{autobc} = 1:
+		broadcast ""
+		broadcast "&9&lDiscord &f» &bJoin The WSMAFarms Discord Server to get notified about everything happening in the community!"
+		broadcast "                                                    https://discord.gg/gtqf7ed"
+		broadcast ""
+	{autobc} = 2:
+		broadcast ""
+		broadcast "&a&lStore &f» &eSupport Our Server And Get Some Awesome Perks! &f/buy"
+		broadcast ""
+	{autobc} = 3:
+		broadcast ""
+		broadcast "&d&lWSMA&b&lFarms &8⪼ &cThank you for playing on our server!"
+		broadcast ""
+	increase {autobc} by 1
+	set {autobc} to 1 if {autobc} > 3
+
+on join:
+    if {welcome.%uuid of player%} is not set:
+        send action bar  "&dWelcome to &b&lWSMA&6&lFarms &6Season 2&d!" to player
+        set {welcome.%uuid of player%} to true
+    if {welcome.%uuid of player%} is true:
+        send action bar "&dWelcome back to &b&lWSMA&6&lFarms&d!" to player
+
+command /resetwelcomebar:
+    permission: op
+    trigger:
+        if player is "1_Winter":
+            remove {welcome.%uuid of player%} from all players
+
+command /rankgui [<offline player>]:
+	permission: ranks.*
+	trigger:
+		if arg-1 is set:
+			set {_player} to arg-1
+		else:
+			set {_player} to player
+		open virtual chest inventory with size 3 named "&d&lRanks Menu %{_player}%" to player
+		format gui slot 11 of player with purple wool named "&5Donator Ranks" to run:
+			open virtual chest inventory with size 3 named "&5Donator Ranks %{_player}%" to player
+			format gui slot 11 of player with lime wool named "&aGrant VIP Rank" to run:
+				console command "rank set %{_player}% vip"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &aVIP!"
+			format gui slot 13 of player with light blue wool named "&bGrant MVP Rank" to run:
+				console command "rank set %{_player}% mvp"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &bMVP!"
+			format gui slot 15 of player with purple wool named "&5Grant Veteran Rank" to run:
+				console command "rank set %{_player}% veteran"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &5Veteran!"
+		format gui slot 15 of player with lime wool named "&aStaff Ranks" to run:
+			open virtual chest inventory with size 1 named "&aStaff Ranks %{_player}%" to player
+			format gui slot 0 of player with green wool named "&2Grant Builder Rank" to run:
+				console command "rank set %{_player}% builder"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &2Builder!"
+			format gui slot 1 of player with purple wool named "&5Rank Jr. Mod Rank" to run:
+				console command "rank set %{_player}% jr.mod"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &5Jr. Mod!"
+			format gui slot 2 of player with blue wool named "&9Grant Moderator Rank" to run:
+				console command "rank set %{_player}% mod"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &9Moderator!"
+			format gui slot 3 of player with magenta wool named "&cGrant Admin Rank" to run:
+				console command "rank set %{_player}% admin"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &cAdmin!"
+			format gui slot 4 of player with cyan wool named "&3Grant Jr. Dev Rank" to run:
+				console command "rank set %{_player}% jr.dev"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &3Jr. Dev!"
+			format gui slot 5 of player with light blue wool named "&bGrant Developer Rank" to run:
+				console command "rank set %{_player}% developer"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &bDeveloper!"
+			format gui slot 6 of player with orange wool named "&6Grant Manager Rank" to run:
+				console command "rank set %{_player}% manager"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &6Manager!"
+			format gui slot 7 of player with pink wool named "&dGrant Director Rank" to run:
+				console command "rank set %{_player}% director"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &dDirector!"
+			format gui slot 8 of player with red wool named "&4Grant Owner Rank" to run:
+				console command "rank set %{_player}% owner"
+				send "&3&lRank &f» &aSet %{_player}%'s rank to &4Owner!"
+
+
+on first join:
+  send "&7Welcome, &b%player% &7to &b&lWSMAFarms!&7 Join our discord &b/discord &8&o(&b##%amount of offline players%&8)" to all players
+
+on first join:
+	send "&a&l&m--------------------------"
+	send "&b&lWELCOME TO WSMAFARMS."
+	send "&eTo start, use /start."
+	send "&e&lHave fun!"
+	send "&a&l&m--------------------------"
+
+
+command /help:
+    trigger:
+        send "&dHey there &6%player%&d! Welcome to &lWSMA&6Farms&d!"
+        wait 20 ticks
+        send "&dTo start off your adventure do &6/start &dto get some simple starter equipment! Then do &6/p auto &dto get a plot!"
+        wait 3 seconds
+        send "&dTo buy items do &6/shop &dand &6/seedshop&d, to check your balance do &6/balance&d."
+        wait 3 seconds
+        send "&dYou can also mine ores at the cave by spawn to get levels &6(/exchangeores)&d."
+        wait 3 seconds
+        send "&dTo upgrade your pickaxe you can do &6/upgrade&d, you can also do &6/challenges &dto earn some extra stuff!"
+        wait 4 seconds
+        send "&dTo return to spawn do &6/spawn &dalso make sure to join our Discord Server &6(/discord) &dand read our rules &6(/rules)&d!"
+        send "&dHave Fun!"
+
+
+
+options:
+	#Add mobs to not kill
+	mobsnotokill: player or boat
+
+command /clearlag:
+	permission: clearlag.sk
+	trigger:
+		loop all entities:
+			if loop-entity is a dropped item:
+				kill loop-entity
+				add 1 to {_mobskilled}
+		if {_mobskilled} > 0:
+			broadcast "&c&lClearLag &f» &aCleared Lag, &fKilled &e%{_mobskilled}% &fentities."
+		else:
+			broadcast "&c&lClearLag &f» &aCleared Lag, &fKilled &e0 &fentities."
+
+every 30 minutes:
+	broadcast "&c&lClearLag &f» &aClearing lag in 10 seconds!"
+	wait 10 seconds
+	execute console command "clearlag"
+
+
+on place:
+	if player's tool is bamboo:
+		cancel event
+		send "&d&lWSMA&b&lMines &8⪼ &cBamboo has been disabled for lagg reasons"
+
+on drop:
+    send "&c&lERROR &8| &cYou aren't allowed to drop items!" to player
+    cancel event
+
+command /heal <player>:
+    permission: wsma.heal
+    trigger:
+        heal arg-1
+        set food level of arg-1 to 20
+        send "&a&lYou have been healed!" to arg-1
+
+command /plugins:
+	aliases: /pl
+	trigger:
+		send "&cOI! That's top secret info!"
+
+on hunger meter change:
+	cancel event
+
+
+command /apply:
+  trigger:
+    send "&d&lWSMA&6&lFarms &f» &cApplications Are Currently Closed! =("
+
+
+command /giveall:
+  permission: op
+  trigger:
+    loop all players:
+      give loop-player player's held item
+      send "&6You have been given %player's held item%" to loop-player
+
+
+
+
+
+on chat:
+    if message contains "!rank":
+        send "&d&lYou rank is &f&l%player's group%" to player
+
+on chat:
+  if message contains "!discord":
+    send "<link:(https://discord.gg/SjupW7y)>&5&lClick Here &3To Join Our Discord Server!<reset>"
+
+
+command /cc:
+	permission: clearchat.sk
+	aliases: /clearchat
+	trigger:
+		loop 300 times:
+			broadcast " "
+		broadcast "&7&m-------------------------------------"
+		broadcast "&c&lChat got cleared by %player%"
+		broadcast " "
+		broadcast " "
+
+on death:
+	set death message to ""
+
+
+
+
+
+
+on join:
+	set the join message to "&8[&a&l+&8] %player's prefix%%player's display name% &ejoined."
+
+on quit:
+	set the quit message to "&8[&c&l-&8] %player's prefix%%player's display name% &eleft."
+
+
+
+on command "/minecraft:execute":
+	cancel event
+	send "&7This command is disabled."
+
+command /staffchat [<text>]:
+	aliases: /sc
+	permission: staffchat.player
+	permission message: &cNo permission.
+	trigger:
+		loop all players:
+			if loop-player has permission "staffchat.player":
+				if arg-1 is not set:
+					send "&bYou have to type something." to player
+					stop trigger
+				else:
+					send "&c&lSTAFFCHAT &8» &e%player's prefix%%player%%player's suffix%&7: &f%arg 1%" to loop-player
+
+
+command /restartserver:
+	permission: op
+	permission message: &CNo permission.
+	trigger:
+		broadcast "&bServer restarting in 30 seconds."
+		wait 10 seconds
+		broadcast "&bServer restarting in 20 seconds."
+		wait 10 seconds
+		broadcast "&bServer restarting in 10 seconds."
+		wait 5 seconds
+		broadcast "&bServer restarting in 5 seconds."
+		wait 1 second
+		broadcast "&bServer restarting in 4 seconds."
+		wait 1 second
+		broadcast "&bServer restarting in 3 seconds."
+		wait 1 second
+		broadcast "&bServer restarting in 2 seconds."
+		wait 1 second
+		broadcast "&bServer restarting in 1 second."
+		wait 1 second
+		broadcast "&bServer restarting.."
+		execute console command "/restart"
+
+
+
+command forcerestart:
+	permission: *
+	permission message: &cYou dont have permission to do this.
+	trigger:
+		broadcast "&b%player% &bis forcing restart."
+		broadcast "&bServer restarting in 30 seconds"
+		send title "&b&lRESTARTING IN" with subtitle "&b&l30 SECONDS" to all players
+		wait 15 seconds
+		broadcast "&bServer restarting in 15 seconds"
+		wait 5 seconds
+		broadcast "&bServer restarting in 10 seconds"
+		wait 5 seconds
+		broadcast "&bServer restarting in 5 seconds"
+		wait 1 second
+		broadcast "&bServer restarting in 4 seconds"
+		wait 1 second
+		broadcast "&bServer restarting in 3 seconds"
+		wait 1 second
+		broadcast "&bServer restarting in 2 seconds"
+		wait 1 second
+		broadcast "&bServer restarting in 1 seconds"
+		wait 1 second
+		broadcast "&bServer restarting.."
+		send title "&b&lRESTARTING.." to all players
+		wait 3 seconds
+		execute console command "/restart"
+
+
+
+every 3 second:
+    loop all players:
+        wipe loop-player's sidebar
+        set name of sidebar of loop-player to "&d&lWSMA&6&lFARMS &8&l▏ &a&lS2 "
+        set score "    " in sidebar of loop-player to 18
+        set score " " in sidebar of loop-player to 15
+        set score "&a&lPlayer " in sidebar of loop-player to 14
+        set score " &8&l▏ &cName: &f%loop-player% " in sidebar of loop-player to 13
+        set score " &8&l▏ &6Rank: &f%loop-player's group%" in sidebar of loop-player to 12
+        set score " &8&l▏ &eLevel: &f%{level.%loop-player's uuid%}%" in sidebar of loop-player to 11
+        set score " &8&l▏ &aBalance: &f%{balance::%loop-player's uuid%}%" in sidebar of loop-player to 10
+        set score " &8&l▏ &bPlaytime: &f%{Playtime.minutes::%uuid of loop-player%}%&fm" in sidebar of loop-player to 9
+        set score "  " in sidebar of loop-player to 7
+        set score "&a&lServer " in sidebar of loop-player to 6
+        set score " &8&l▏ &dStatus: &f1 Day To Release!" in sidebar of loop-player to 5
+        set score " &8&l▏ &5Online: &f%number of online players%" in sidebar of loop-player to 4
+        set score " " in sidebar of loop-player to 3
+        set score " &8&l▏ &e/discord" in sidebar of loop-player to 2
+        set score " &8&l▏ &e/rules" in sidebar of loop-player to 1
+
+
+
+command /discord:
+	trigger:
+		send "<link:https://discord.gg/gtqf7ed>&e&lDiscord &8» &7Click here to join the WSMAFarms official discord.<reset>"
+
+every 5 seconds:
+    loop all players:
+        set tablist header of loop-player to "%nl%&8✦ &a&lWSMAFARMS.MINEHUT.GG &8✦ %nl% &7Play & Have fun! %Nl% %nl%"
+        set tablist footer of loop-player to "%nl% &e/discord %nl% &dTo get started, use /start!"
+
+every 5 second:
+	loop all players:
+		set loop-player's tab list name to "%loop-player's prefix%%loop-player%%loop-player's suffix%"
+
+
+options:
+    prefix: &b&lRANKSYSTEM &8»
+
+command /rank set [<player>] [<text>]:
+    permission: rank.wsma
+    permission message: &CNo permission.
+    trigger:
+        if arg 1 is not set:
+            send "{@prefix} &7Please select an player. Example: &b/rank set LiamJ129 Developer"
+            stop
+
+        If arg 1 is set:
+            if arg 2 is not set:
+                send "{@prefix} &7please select an rank. Example: &b/rank set LiamJ129 Developer"
+
+        If arg 1 is set:
+            if arg 2 is set:
+                execute console command "/pex user %arg-1% group set %arg-2%"
+                send "{@prefix} &7Rank updated for &e%arg-1%"
+                send "{@prefix} &7Your rank got updated by &b%player%." to arg-1
+
+command /rules:
+  trigger:
+    send "&7--&cRules&7--"
+    send "&7+Stealing from others plots is STRICTLY prohibited"
+    send "&7+No Griefing"
+    send "&7+No Hacking"
+    send "&7+No Disrespecting Staff or Players"
+    send  "&7+No Swearing as this server is meant for people of all ages"
+    send  "&7+No saying the N-word - This will result in a Perm Ban"
+    send  "&7+No Racism"
+    send  "&7+No Chat Flooding or Spam"
+    send  "&7+No Politics"
+    send  "&7+No Advertising Other Servers"
+    send  "&7+No Impersonating players or staff"
+    send  "&7+No using Alts to get extra plots (alt boosting)"
+    send "&7+No using alts or discord chat to bypass mutes and bans."
+    send "&7 +Do not leak info about someone unless you have consent to."
+    send "&7+No dm advertising"
+    send "&7+Do not be inappropriate"
+    send "&7+Boosting Is Not Allowed"
+    send "&7+Acting Immature will result into a warn"
+    send "&7+No impersonating (ex. OWNER)"
+    send "&7+Please change your nickname if a staff member says that it's too long"
+    send "&7+Making your nickname '&ko' is not allowed"
+
+command /ranks:
+	permission: op
+	permission message: &cNo permission.
+	trigger:
+		send "&eOwner"
+		send "&4Admin"
+		send "&cManager"
+		send "&bDeveloper"
+		send "&eJr.Mod"
+		send "&eSr.Mod"
+		send "&dBuilder"
+		send "&dBuild-Leader"
+		send "&7Farmer"
+
+
+command /setspawn:
+	permission: wsma.op
+	trigger:
+		set {spawn} to location of player
+		set {spawn}'s pitch to player's pitch
+		set {spawn}'s yaw to player's yaw
+		send "&bSpawn set to location %location of player%"
+command /spawn:
+	trigger:
+		teleport player to {spawn}
+
+on join:
+	teleport player to {spawn}
+
+on first join:
+	teleport player to {spawn}
+
+command /broadcast <text>:
+  permission: bc.use
+  trigger:
+    broadcast ""
+    broadcast "&a&lWSMAFARMS &7| &e%arg-1%"
+    broadcast ""
+
+
+
+command /sudo [<player>] [<text>]:
+	permission: sudo.use
+	trigger:
+		if arg-1 is not set:
+			send "&d&lWSMA&6&lFarms &7| &cUsage&7: &b/sudo 1_Winter Yeet"
+			stop
+		If arg-2 is not set:
+			send "&d&lWSMA&6&lFarms &7| &cUsage&7: &b/sudo 1_Winter Yeet"
+			stop
+		If arg-1 is set:
+			If arg-2 is set:
+				make arg-1 say arg-2
+
+
+on command "/kill @a":
+	cancel event
+	send "&7This command is disabled."
+
+on command "/kill":
+	cancel event
+	send "&7This command is disabled."
+
+on command "/minecraft:kill":
+	cancel event
+	send "&7This command is disabled."
+
+command /gm <text>:
+	permission: slayer.gm
+	trigger:
+		if arg-1 is "1":
+			make player execute command "/gmc"
+		if arg-1 is "2":
+			make player execute command "/gma"
+		if arg-1 is "3":
+			make player execute command "/gmsp"
+		if arg-1 is "0":
+			make player execute command "/gms"
+
+command /vanish:
+	permission: wsma.vanish
+	permission message: &cNo permission.
+	aliases: /v
+	trigger:
+		if {vanish::%player's uuid%} is not set:
+			hide the player from all players
+			send "&bVanish enabled."
+			set {vanish::%player's uuid%} to true
+			broadcast "&8[&c&l-&8] %player's prefix%%player%%player's suffix%"
+			loop all players:
+				if loop-player has permission "wsma.vanish":
+					send "&b%player% &bdidnt actually leave, The person is just in vanish." to loop-player
+
+		else:
+			reveal the player from all players
+			send "&bVanish disabled."
+			delete {vanish::%player's uuid%}
+			broadcast "&8[&a&l+&8] %player's prefix%%player%%player's suffix%"
+			loop all players:
+				if loop-player has permission "wsma.vanish":
+					send "&b%player% &bis no longer in vanish." to loop-player
+
+
+
+options:
+    prefix: &c&lKICK &8»
+
+
+command /kick [<player>] [<text>]:
+	permission: wsma.kick
+	permission message: &cNo permission.
+	trigger:
+		if arg 1 is not set:
+			send "{@prefix} &7Use &b/kick (player) (reason)"
+			stop
+		If arg 2 is not set:
+			send "{@prefix} &7Use &b/kick (player) (reason)"
+			stop
+		If arg 1 is set:
+			If arg 2 is set:
+				kick arg 1 due to "&c&lYou got kicked from WSMALands. %nl%&7Reason: &b%arg 2% %nl%&7Staff Member: &b%player% %nl%&7If you think this is abuse or if you want to appeal join our discord. %nl%&bDiscord: https://discord.gg/gtqf7ed"
+				broadcast "&b%arg 1% &bgot kicked by %player%"
+
+
+options:
+    prefix: &c&lBAN &8»
+
+command /ban [<offline player>] [<text>]:
+	permission: wsma.ban
+	permission message: &cNo permission.
+	trigger:
+		if arg 1 is not set:
+			send "{@prefix} &7Use &b/ban (player) (reason)"
+			stop
+		If arg 2 is not set:
+			send "{@prefix} &7Use &b/ban (player) (reason)"
+			stop
+		If arg 1 is set:
+			If arg 2 is set:
+				if {ban.%arg 1's uuid%} is set:
+					send "{@prefix} &7This player is already banned."
+				else:
+					set {ban.%arg 1's uuid%} to true
+					broadcast "&b%arg 1% &bgot permanently banned by %player%"
+					ban arg 1 due to "&c&lYou got permanently banned from WSMALands. %nl%&7Reason: &b%arg 2% %nl%&7Staff Member: &b%player% %nl%&7If you think this is abuse or if you want to appeal join our discord. %nl%&bDiscord: https://discord.gg/gtqf7ed"
+
+					kick arg 1 due to "&c&lYou got permanently banned from WSMALands. %nl%&7Staff Member: &b%player% %nl%&7If you think this is abuse or if you want to appeal join our discord. %nl%&bDiscord: https://discord.gg/gtqf7ed"
+
+
+command /unban [<offline player>]:
+	permission: wsma.unban
+	permission message: &CNo permission.
+	trigger:
+		if arg 1 is not set:
+			send "&bSelect an player"
+		If arg 1 is set:
+			If {ban.%arg 1's uuid%} is set:
+				set {ban.%arg 1's uuid%} to false
+				delete {ban.%arg 1's uuid%}
+				broadcast "&b%arg 1% &bgot unbanned."
+				execute console command "/pardon %arg 1%"
+			else:
+				send "&bThis player is not banned."
+
+
+on join:
+	If {ban.%player's uuid%} is set:
+		wait 0.5 seconds
+		kick player due to  "&c&lYou are permanently banned from WSMALands. %nl%&7If you think this is abuse or if you want to appeal join our discord. %nl%&bDiscord: https://discord.gg/gtqf7ed"
+
+command /fly [<player>]:
+	permission: wsma.fly
+	permission message: &cNo permission.
+	trigger:
+		if arg-1 is not set:
+			if {fly.%player's uuid%} is not set:
+				set player's flight mode to true
+				send "&bFly enabled."
+				set {fly.%player's uuid%} to true
+			else:
+				set player's flight mode to false
+				send "&bFly disabled."
+				delete {fly.%player's uuid%}
+				stop
+		If arg 1 is set:
+			if {fly.%arg 1's uuid%} is not set:
+				set arg 1's flight mode to true
+				send "&bFly enabled for %arg 1%."
+				send "&bYour fly status got set to true by %player%" to arg 1
+				set {fly.%player's uuid%} to true
+			else:
+				set arg 1's flight mode to false
+				send "&bFly disabled for %arg 1%"
+				send "&bYour fly status got set to false by %player%" to arg 1
+				delete {fly.%arg 1's uuid%}
+				stop
+
+
+
+on quit:
+	delete {fly.%player's uuid%}
+	set {fly.%player's uuid%} to false
+
+on join:
+	if player has permission "wsma.fly":
+		execute player command "/fly"
+
+on death:
+	teleport player to {spawn}
+
+
+
+on join:
+    if {joined.s2.%uuid of player%} is not set:
+        clear player's inventory
+        set {joined.s2.%uuid of player%} to true
+
+
+every minute:
+    loop all players:
+        add 1 to {Playtime.minutes::%uuid of loop-player%}
+
+command /resetplaytim:
+    permission: op
+    trigger:
+        delete {Playtime.minutes::*}
+        delete {playtimeLb::*}
+
+command /feed [<player>]:
+  permission: wsma.feed
+  permission message: &cNo permission.
+  trigger:
+    arg 1 is not set:
+      send "&bYou have to select an player."
+      stop trigger
+    arg 1 is set:
+      arg 1 is not online:
+        send "&bThis player is not online."
+        stop trigger
+    arg 1 is set:
+      arg 1 is online:
+        send "&bYou got feeded by %player%" to arg 1
+        send "&b%arg 1% &bgot feeded."
+        set food level of arg 1 to 20
+
+command /autofarm:
+  permission: auto.farm
+  trigger:
+    set block underneath player to water
+    set block underneath south of player to sand
+    set block underneath north of player to sand
+    set block underneath east of player to sand
+    set block underneath west of player to sand
+    set block west of player to sugar cane
+    set block east of player to sugar cane
+    set block north of player to sugar cane
+    set block south of player to sugar cane
+
+
+command /speed <number>:
+  permission: speed.use
+  trigger:
+    if player is not flying:
+      if arg-1 is 1:
+        set player's walking speed to 0.25
+        send "&d&lWSMA&6&lFarms &7| &bSet your walking speed to %arg-1%"
+      else:
+        set player's walking speed to arg-1
+        send "&d&lWSMA&6&lFarms &7| &bSet your walking speed to %arg-1%"
+    if player is flying:
+      if arg-1 is 1:
+        set player's flight speed to 0.10
+        send "&d&lWSMA&6&lFarms &7| &bSet your flight speed to %arg-1%"
+      else:
+        set player's flight speed to arg-1
+        send "&d&lWSMA&6&lFarms &7| &bSet your flight speed to %arg-1%"
+
+
+options:
+    prefix: &d&LSTART &8»
+
+command /start:
+	trigger:
+		set {1yearcooldown.%player's uuid%} to true
+		send "{@prefix} &7Welcome to &a&lWSMAFARMS! &7You have now executed the command, and the to start you will get some stuff. After that you can do /plot auto and start farming!"
+		give player 1 water bucket
+		give player 8 seeds
+		give player 1 wooden hoe
+		give player 1 wooden shovel
+		give player 1 wooden pickaxe
+		wait 3 seconds
+		send "{@prefix} &7You will start with 500 dollars in your balance."
+		add 500 to {balance::%player's uuid%}
+		send "{@prefix} &a&l+ &a500. &7Current balance state: &b%{balance::%player's uuid%}%"
+		wait 2 seconds
+		send title "&a&LYOU CAN NOW START!" for 1 second
+		wait 1 second
+		send "{@prefix} &7To start, we will make you level 1. &aCongratulations! &7And good luck out there."
+		add 1 to {level.%player's uuid%}
+		wait 2.5 seconds
+		send "{@prefix} &7Current level: &b%{level.%player's uuid%}%"
+
+
+
+on command "/start":
+	{1yearcooldown.%player's uuid%} = true:
+		cancel event
+		send "{@prefix} &7You can only do this command 1 time."
+
+
+command /resetlevel [<player>]:
+	permission: wsma.resetlevel
+	permission message: &cNo permission.
+	trigger:
+		if arg-1 is not set:
+			send "&bSelect an player."
+			stop
+		If arg-1 is set:
+			send "&bResetting %arg-1%&b's level."
+			set {level.%arg-1's uuid%} to 0
+			send "&bNew level for %arg-1%&b: %{level.%arg-1's uuid%}%"
+			send "&bYour level got resetted by %player%" to arg-1
+
+
+
+
+
+
+
+command /resettag [<player>]:
+	trigger:
+		delete {nametag.%arg 1's uuid%}
+
+
+on weather change:
+	set weather to sunny
+
+every 1 tick in world "wsmafarms-2":
+	set time to 09:00
+	set weather to sunny
+
+command /tes1:
+    trigger:
+        send "a"

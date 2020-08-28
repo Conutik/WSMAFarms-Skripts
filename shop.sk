@@ -1,0 +1,1232 @@
+options:
+    prefix: &e&lSHOP &8»
+
+
+
+on right click on villager:
+	if name of villager is "&d&lWSMAFarms &7| &bOres Exchange":
+		make player execute command "/upgrade"
+
+on right click on entity:
+    if name of entity is "&d&lSHOP":
+        make player execute command "/shop"
+
+options:
+    prefix: &e&lSHOP &8»
+
+command /spawnupgradeshop:
+    permission: op
+    permission message: &cNo permission.
+    trigger:
+        spawn 1 villager at player's location
+        set name of last spawned villager to "&d&lWSMAFarms &7| &bOres Exchange"
+
+on right click on villager:
+	if name of villager is "&d&lWSMAFarms &7| &bOres Exchange":
+		make player execute command "/upgrade"
+
+on right click on entity:
+    if name of entity is "&d&lSHOP":
+        make player execute command "/shop"
+
+command /shop:
+    trigger:
+        open virtual chest with 3 rows named "&8>> &d&lSHOP &8<<" to player
+        format gui slot 0,1,2,3,4,5,6,7,8,9,13,17,18,19,20,21,23,24,25, and 26 of player with Gray Stained Glass Pane named "&7" to do nothing
+        format gui slot 10 of player with Grass Block named "&b&lBlocks" to run:
+
+            open virtual chest with 3 rows named "&b&lBlocks" to player
+            format gui slot 0 of player with gravel named "&fGravel" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 gravel."
+                    give player 1 gravel
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 1 of player with stone named "&fStone" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 stone."
+                    give player 1 stone
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 2 of player with dark oak log named "&fDark Oak Log" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Dark Oak Log."
+                    give player 1 dark oak log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 3 of player with Acacia Log named "&fAcacia Log" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Acacia Log."
+                    give player 1 Acacia Log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 4 of player with Coarse Dirt named "&fCoarse Dirt" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Coarse Dirt."
+                    give player 1 Coarse Dirt
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 5 of player with Cobblestone named "&fCobblestone" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Cobblestone."
+                    give player 1 Cobblestone
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 6 of player with Diorite named "&fDiorite" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Diorite."
+                    give player 1 Diorite
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 7 of player with Jungle Log named "&fJungle Log" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Jungle Log."
+                    give player 1 Jungle Log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 8 of player with Dirt named "&fDirt" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Dirt."
+                    give player 1 Dirt
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 9 of player with Andesite named "&fAndesite" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Andesite."
+                    give player 1 Andesite
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 10 of player with Spruce Log named "&fSpruce Log" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Spruce Log."
+                    give player 1 Spruce Log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 11 of player with podzol named "&fPodzol" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Podzol."
+                    give player 1 Podzol
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 12 of player with Oak Log named "&fOak Log"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Oak Log."
+                    give player 1 Oak Log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 13 of player with Birch Log named "&fBirch Log"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Brich Logs."
+                    give player 1 Birch Log
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 14 of player with Grass Block named "&fGrass Block"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Grass Block."
+                    give player 1 Grass Block
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 15 of player with Granite named "&fGranite"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Granite."
+                    give player 1 Granite
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 16 of player with Dark Oak Planks named "&fDark Oak Planks"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Dark Oak Planks."
+                    give player 1 Dark Oak Planks
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 17 of player with Birch Planks named "&fBirch Planks"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Birch Planks."
+                    give player 1 Birch Planks
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 18 of player with Mycelium named "&fMycelium"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 249:
+                    send "{@prefix} &7You bought 1 Mycelium."
+                    give player 1 Mycelium
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 19 of player with Hay Bale named "&fHay Bale"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Hay Bale."
+                    give player 1 Hay Bale
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 20 of player with block of quartz named "&fBlock Of Quartz"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Block Of Quartz."
+                    give player 1 block of quartz
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 21 of player with quartz block named "&fSmooth Quartz Block" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Smooth Quartz Block"
+                    give player 1 Smooth Quartz
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 22 of player with Sea Lantern named "&fSea Lantern" with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Sea Lantern"
+                    give player 1 Sea Lantern
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 23 of player with Purpur Pillar named "&fPurpur Pillar"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Purpur Pillarr"
+                    give player 1 Purpur Pillar
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 24 of player with Netherrack named "&fNetherrack"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Netherrack"
+                    give player 1 Netherrack
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 25 of player with Purpur block named "&fPurpur Block"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought 1 Purpur Block"
+                    give player 1 Purpur Block
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 26 of player with arrow named "&bNext Page"  to run:
+                close player's inventory
+                open virtual chest with 3 rows named "&a&lBLOCKS PAGE 2" to player
+                format gui slot 0 of player with Red Nether Bricks named "&fRed Nether Bricks"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Red Nether Bricks"
+                        give player 1 Red Nether Bricks
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 1 of player with Nether Bricks named "&fNether Bricks"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Nether Bricks"
+                        give player 1 Nether Bricks
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 2 of player with Glowstone named "&fGlowstone"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Glowstone"
+                        give player 1 Glowstone
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 3 of player with Crimson Nylium named "&fCrimson Nylium"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Crimson Nylium"
+                        give player 1 Crimson Nylium
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 4 of player with Warped Nylium named "&fWarped Nylium"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Warped Nylium"
+                        give player 1 Warped Nylium
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 5 of player with Warped Stem named "&fWarped Stem"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Warped Stem"
+                        give player 1 Warped Stem
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 6 of player with Warped Hyphae named "&fWarped Hyphae"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Warped Hyphae"
+                        give player 1 Warped Hyphae
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 7 of player with Bookshelf named "&fBookshelf"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Bookshelf"
+                        give player 1 Bookshelf
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 8 of player with Mossy Cobblestone named "&fMossy Cobblestone"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Mossy Cobblestone"
+                        give player 1 Mossy Cobblestone
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 9 of player with Obsidian named "&fObsidian"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Obsidian"
+                        give player 1 Obsidian
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 10 of player with Smooth Stone named "&fSmooth Stone"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Smooth Stone"
+                        give player 1 Smooth Stone
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 11 of player with bricks named "&fBricks"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Bricks"
+                        give player 1 bricks
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 12 of player with Ice named "&fIce"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Ice"
+                        give player 1 Ice
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 13 of player with Snow Block named "&fSnow Block"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Snow Blocks"
+                        give player 1 Snow Block
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 14 of player with clay named "&fClay"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Clay"
+                        give player 1 clay
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 15 of player with Soul Sand named "&fSoul Sand"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Soul Sand"
+                        give player 1 Soul Sand
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 16 of player with Basalt named "&fBasalt"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Basalt"
+                        give player 1 Basalt
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 17 of player with Soul Soil named "&fSoul Soil"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Soul Soil"
+                        give player 1 Soul Soil
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 18 of player with Stone Bricks named "&fStone Bricks"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Stone Bricks"
+                        give player 1 Stone Bricks
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 19 of player with Polished Basalt named "&fPolished Basalt" with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Polished Basalt"
+                        give player 1 Polished Basalt
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 20 of player with Prismarine named "&fPrismarine"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Prismarine"
+                        give player 1 Prismarine
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 21 of player with Magma Block named "&fMagma Block"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Magma Block"
+                        give player 1 Magma Block
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 22 of player with Packed Ice named "&fPacked Ice"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Packed Ice"
+                        give player 1 Packed Ice
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 23 of player with Warped Wart Block named "&fWarped Wart Block"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Warped Wart Block"
+                        give player 1 Warped Wart Block
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 24 of player with Nether wart block named "&fNether wart block"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Nether wart block"
+                        give player 1 Nether wart block
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+
+                format gui slot 25 of player with Bone block named "&fBone block"  with lore "&b250 $" to run:
+                    {balance::%player's uuid%} > 250:
+                        send "{@prefix} &7You bought 1 Bone block"
+                        give player 1 Bone block
+                        remove 250 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 26 of player with barrier named "&cBack to Main Menu" to run:
+                    close player's inventory
+                    execute player command "/shop"
+
+
+        format gui slot 11 of player with Stone Hoe named "&a&lTools" to run:
+            open virtual chest with 3 rows named "&a&lTOOLS PG 1 - &6Wooden Tools" to player
+            format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24, and 25 of player with gray stained glass pane named " " to do nothing
+            format gui slot 11,13, and 15 of player with white stained glass pane named " " to do nothing
+            format gui slot 10 of player with wooden pickaxe named "&fWooden Pickaxe"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought a Wooden Pickaxe"
+                    give player 1 wooden pickaxe
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 12 of player with wooden axe named "&fWooden Axe"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought a Wooden Axe"
+                    give player 1 wooden axe
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 14 of player with wooden shovel named "&fWooden Shovel"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought a Wooden Shovel"
+                    give player 1 wooden shovel
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 1 of player with wooden hoe named "&fWooden Hoe"  with lore "&b250 $" to run:
+                {balance::%player's uuid%} > 250:
+                    send "{@prefix} &7You bought a Wooden Hoe"
+                    give player 1 wooden hoe
+                    remove 250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 26 of player with arrow named "&cNext Page!" to run:
+                open virtual chest with 3 rows named "&a&lTOOLS PG 2 - &7Stone Tools" to player
+                format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25, and 26 of player with gray stained glass pane named " " to do nothing
+                format gui slot 11,13, and 15 of player with white stained glass pane named " " to do nothing
+                format gui slot 10 of player with stone pickaxe named "&fStone Pickaxe"  with lore "&b750 $" to run:
+                    {balance::%player's uuid%} > 750:
+                        send "{@prefix} &7You bought a Stone Pickaxe"
+                        give player 1 Stone pickaxe
+                        remove 750 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 12 of player with stone axe named "&fStone Axe"  with lore "&b750 $" to run:
+                    {balance::%player's uuid%} > 750:
+                        send "{@prefix} &7You bought a Stone Axe"
+                        give player 1 stone axe
+                        remove 750 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 14 of player with stone shovel named "&fStone Shovel"  with lore "&b750 $" to run:
+                    {balance::%player's uuid%} > 750:
+                        send "{@prefix} &7You bought a Stone Shovel"
+                        give player 1 stone shovel
+                        remove 750 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 1 of player with stone hoe named "&fStone Hoe"  with lore "&b750 $" to run:
+                    {balance::%player's uuid%} > 750:
+                        send "{@prefix} &7You bought a Stone Hoe"
+                        give player 1 stone hoe
+                        remove 750 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 26 of player with arrow named "&cNext Page!" to run:
+                    open virtual chest with 3 rows named "&a&lTOOLS PG 3 - &fIron Tools" to player
+                    format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25, and 26 of player with gray stained glass pane named " " to do nothing
+                    format gui slot 11,13, and 15 of player with white stained glass pane named " " to do nothing
+                    format gui slot 10 of player with iron pickaxe named "&fIron Pickaxe"  with lore "&b2,500 $" to run:
+                        {balance::%player's uuid%} > 2500:
+                            send "{@prefix} &7You bought a Iron Pickaxe"
+                            give player 1 iron pickaxe
+                            remove 2500 from {balance::%player's uuid%}
+                            close player's inventory
+                        else:
+                            send "{@prefix} &7You dont have enough money to buy this."
+                    format gui slot 12 of player with iron axe named "&fIron Axe"  with lore "&b2,500 $" to run:
+                        {balance::%player's uuid%} > 2500:
+                            send "{@prefix} &7You bought a Iron Axe"
+                            give player 1 iron axe
+                            remove 2500 from {balance::%player's uuid%}
+                            close player's inventory
+                        else:
+                            send "{@prefix} &7You dont have enough money to buy this."
+                    format gui slot 14 of player with iron shovel named "&fIron Shovel"  with lore "&b2,500 $" to run:
+                        {balance::%player's uuid%} > 2500:
+                            send "{@prefix} &7You bought a Iron Shovel"
+                            give player 1 iron shovel
+                            remove 2500 from {balance::%player's uuid%}
+                            close player's inventory
+                        else:
+                            send "{@prefix} &7You dont have enough money to buy this."
+                    format gui slot 1 of player with iron hoe named "&fIron Hoe"  with lore "&b2,500 $" to run:
+                        {balance::%player's uuid%} > 2500:
+                            send "{@prefix} &7You bought a Iron Hoe"
+                            give player 1 iron hoe
+                            remove 2500 from {balance::%player's uuid%}
+                            close player's inventory
+                        else:
+                            send "{@prefix} &7You dont have enough money to buy this."
+                    format gui slot 26 of player with arrow named "&cNext Page!" to run:
+                        open virtual chest with 3 rows named "&a&lTOOLS PG 4 - &bDiamond Tools" to player
+                        format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25, and 26 of player with gray stained glass pane named " " to do nothing
+                        format gui slot 11,13, and 15 of player with white stained glass pane named " " to do nothing
+                        format gui slot 10 of player with diamond pickaxe named "&fDiamond Pickaxe"  with lore "&b5,000 $" to run:
+                            {balance::%player's uuid%} > 5000:
+                                send "{@prefix} &7You bought a Diamond Pickaxe"
+                                give player 1 diamond pickaxe
+                                remove 5000 from {balance::%player's uuid%}
+                                close player's inventory
+                            else:
+                                send "{@prefix} &7You dont have enough money to buy this."
+                        format gui slot 12 of player with diamond axe named "&fDiamond Axe"  with lore "&b5,000 $" to run:
+                            {balance::%player's uuid%} > 5000:
+                                send "{@prefix} &7You bought a Diamond Axe"
+                                give player 1 diamond axe
+                                remove 5000 from {balance::%player's uuid%}
+                                close player's inventory
+                            else:
+                                send "{@prefix} &7You dont have enough money to buy this."
+                        format gui slot 14 of player with diamond shovel named "&fDiamond Shovel"  with lore "&b5,000 $" to run:
+                            {balance::%player's uuid%} > 5000:
+                                send "{@prefix} &7You bought a Diamond Shovel"
+                                give player 1 diamond shovel
+                                remove 5000 from {balance::%player's uuid%}
+                                close player's inventory
+                            else:
+                                send "{@prefix} &7You dont have enough money to buy this."
+                        format gui slot 1 of player with diamond hoe named "&fDiamond Hoe"  with lore "&b5,000 $" to run:
+                            {balance::%player's uuid%} > 5000:
+                                send "{@prefix} &7You bought a Diamond Hoe"
+                                give player 1 diamond hoe
+                                remove 5000 from {balance::%player's uuid%}
+                                close player's inventory
+                            else:
+                                send "{@prefix} &7You dont have enough money to buy this."
+                        format gui slot 26 of player with barrier named "&cBack to Main Menu" to run:
+                            close player's inventory
+                            execute player command "/shop"
+
+
+
+
+        format gui slot 12 of player with wheat named "&6&lCrops" to run:
+            open virtual chest with 3 rows named "&6&lCROPS &8- &bPage 1" to player
+            format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24, and 25 of player with gray stained glass pane named " " to do nothing
+            format gui slot 10 of player with wheat seeds named "&fWheat Seeds" with lore "500 $" to run:
+                {balance::%player's uuid%} > 500:
+                    send "{@prefix} &7You bought 1 Wheat Seed"
+                    give player 1 wheat seeds
+                    remove 500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 11 of player with carrot named "&fCarrot" with lore "3,500 $" to run:
+                {balance::%player's uuid%} > 3500:
+                    send "{@prefix} &7You bought 1 Carrot"
+                    give player 1 carrot
+                    remove 3500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 12 of player with potato named "&fPotato" with lore "3,500 $" to run:
+                {balance::%player's uuid%} > 3500:
+                    send "{@prefix} &7You bought 1 Potato"
+                    give player 1 potato
+                    remove 3500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 13 of player with beetroot seeds named "&fBeetroot Seeds" with lore "4,000 $" to run:
+                {balance::%player's uuid%} > 4000:
+                    send "{@prefix} &7You bought 1 Beetroot Seed"
+                    give player 1 beetroot seeds
+                    remove 4000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 14 of player with melon seeds named "&fMelon Seeds" with lore "5,000 $" to run:
+                {balance::%player's uuid%} > 5000:
+                    send "{@prefix} &7You bought 1 Melon Seed"
+                    give player 1 melon seeds
+                    remove 5000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 15 of player with pumpkin seeds named "&fPunmpkin Seeds" with lore "4,500 $" to run:
+                {balance::%player's uuid%} > 4500:
+                    send "{@prefix} &7You bought 1 Pumpkin Seed"
+                    give player 1 pumpkin seeds
+                    remove 4500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 1 of player with cactus named "&fCactus" with lore "9,000 $" to run:
+                {balance::%player's uuid%} > 9000:
+                    send "{@prefix} &7You bought 1 Cactus"
+                    give player 1 cactus
+                    remove 9000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+            format gui slot 26 of player with arrow named "&bNext Page" to run:
+                open virtual chest with 3 rows named "&6&lCROPS &8- &bPage 2" to player
+                format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24, and 25 of player with gray stained glass pane to do nothing
+                format gui slot 10 of player with sweet berries named "&fBerries" with lore "TBD" to run:
+                    {balance::%player's uuid%} > 100000000000:
+                        send "{@prefix} &7You bought 1 Berry"
+                        give player 1 sweet berries
+                        remove 100000000000 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 11 of player with oak sapling named "&fOak Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Oak Sapling"
+                        give player 1 oak sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 12 of player with birch sapling named "&fBirch Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Birch Sapling"
+                        give player 1 Birch sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+
+                format gui slot 13 of player with spruce sapling named "&fSpruce Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Spruce Sapling"
+                        give player 1 spruce sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 14 of player with dark oak sapling named "&fDark Oak Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Dark Oak Sapling"
+                        give player 1 dark oak sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 15 of player with acacia sapling named "&fAcacia Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Acacia Sapling"
+                        give player 1 acacia sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 1 of player with jungle sapling named "&fJungle Sapling" with lore "7,500 $" to run:
+                    {balance::%player's uuid%} > 7500:
+                        send "{@prefix} &7You bought 1 Jungle Sapling"
+                        give player 1 jungle sapling
+                        remove 7500 from {balance::%player's uuid%}
+                        close player's inventory
+                    else:
+                        send "{@prefix} &7You dont have enough money to buy this."
+                format gui slot 26 of player with barrier named "&cBack to Main Menu" to run:
+                    close player's inventory
+                    execute player command "/shop"
+
+
+        format gui slot 14 of player with water bucket named "&d&l&oMisc" to run:
+            open virtual chest with 4 rows named "&d&lMISC" to player
+            format gui slot 0,1,2,3,4,5,6,7, and 8 of player with red stained glass pane named "&7" to do nothing
+
+
+            format gui slot 9 of player with Trapped Chest named "&fTrapped Chest"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Trapped Chest"
+                    give player 1 Trapped Chest
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 10 of player with Chest named "&fChest"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Chest"
+                    give player 1 Chest
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 11 of player with Crafting Table named "&fCrafting Table"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Crafting Table"
+                    give player 1 Crafting Table
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 12 of player with Furnace named "&fFurnace"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Furnace"
+                    give player 1 Furnace
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 13 of player with Bookshelf named "&fBookshelf"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Bookshelf"
+                    give player 1 Bookshelf
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 14 of player with Enchanting Table named "&fEnchanting Table"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Enchanting Table"
+                    give player 1 Enchanting Table
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 15 of player with Beacon named "&fBeacon"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Beacon"
+                    give player 1 Beacon
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 16 of player with Sponge named "&fSponge"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Sponge"
+                    give player 1 Sponge
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 17 of player with Ladder named "&fLadder"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Ladder"
+                    give player 1 Ladder
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 18 of player with Redstone Torch named "&fRedstone Torch"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Redstone Torch"
+                    give player 1 Redstone Torch
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 19 of player with Torch named "&fTorch"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Torch"
+                    give player 1 Torch
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 20 of player with End Rod named "&fEnd Rod"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 End Rod"
+                    give player 1 End Rod
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 21 of player with Lantern named "&fLantern"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Lantern"
+                    give player 1 Lantern
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 22 of player with Oak Boat named "&fOak Boat"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Oak Boat"
+                    give player 1 Oak Boat
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 23 of player with Minecart named "&fMinecart"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Minecart"
+                    give player 1 Minecart
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+            format gui slot 24 of player with Rail named "&fRail"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Rail"
+                    give player 1 Rail
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 25 of player with Powered Rail named "&fPowered Rail"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Powered Rail"
+                    give player 1 Powered Rail
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 26 of player with Detector Rail named "&fDetector Rail"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Detector Rail"
+                    give player 1 Detector Rail
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 27 of player with Oak Sign named "&fOak Sign"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Oak Sign"
+                    give player 1 Oak Sign
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 28 of player with String named "&fString"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 String"
+                    give player 1 String
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 29 of player with Bottle o' enchanting named "&fBottle o' enchanting"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Bottle o' enchanting"
+                    give player 1 Bottle o' enchanting
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 30 of player with Lapis Lazuli named "&fLapis Lazuli"  with lore "&b750 $" to run:
+                {balance::%player's uuid%} > 750:
+                    send "{@prefix} &7You bought 1 Lapis Lazuli"
+                    give player 1 Lapis Lazuli
+                    remove 750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 35 of player with barrier named "&cBack To Main Menu" to run:
+                close player's inventory
+                execute player command "/shop"
+
+            format gui slot 31,32,33, and 34 of player with barrier named "&cBack To Main Menu" to run:
+                close player's inventory
+                execute player command "/shop"
+
+
+
+
+        format gui slot 15 of player with Redstone Torch named "&c&lRedstone" to run:
+            open virtual chest with 3 rows named "&c&lRedstone" to player
+            format gui slot 0 of player with redstone dust named "&fRedstone Dust" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Redstone Dust"
+                    give player 1 redstone dust
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 1 of player with block of redstone named "&fBlock of Redstone" with lore "&b10,000 $" to run:
+                {balance::%player's uuid%} > 10000:
+                    send "{@prefix} &7You bought 1 Blocks of Redstone"
+                    give player 1 block of redstone
+                    remove 10000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 2 of player with redstone torch named "&fRedstone Torch" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Redstone Torches"
+                    give player 1 redstone torch
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 3 of player with redstone repeater named "&fRedstone Repeater" with lore "&b2,500 $" to run:
+                {balance::%player's uuid%} > 2500:
+                    send "{@prefix} &7You bought 1 Redstone Repeaters"
+                    give player 1 redstone repeater
+                    remove 2500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 4 of player with redstone comparator named "&fRedstone Comparator" with lore "&b2,500 $" to run:
+                {balance::%player's uuid%} > 2500:
+                    send "{@prefix} &7You bought 1 Redstone Comparators"
+                    give player 1 redstone comparator
+                    remove 2500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 5 of player with piston named "&fPiston" with lore "&b2,500 $" to run:
+                {balance::%player's uuid%} > 2500:
+                    send "{@prefix} &7You bought 1 Pistons"
+                    give player 1 piston
+                    remove 2500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 6 of player with sticky piston named "&fSticky Piston" with lore "&b3,000 $" to run:
+                {balance::%player's uuid%} > 3000:
+                    send "{@prefix} &7You bought 1 Sticky Pistons"
+                    give player 1 sticky piston
+                    remove 3000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 7 of player with hopper named "&fHopper" with lore "&b25,000 $" to run:
+                {balance::%player's uuid%} > 25000:
+                    send "{@prefix} &7You bought 1 Hoppers"
+                    give player 1 hopper
+                    remove 25000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 8 of player with tripwire hook named "&fTripwire Hook" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Tripwire Hooks"
+                    give player 1 tripwire hook
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 9 of player with Stone Button named "&fStone Button" with lore "&b1,000 $" to run:
+                {balance::%player's uuid%} > 1000:
+                    send "{@prefix} &7You bought 1 Stone Buttons"
+                    give player 1 stone button
+                    remove 1000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 10 of player with lever named "&fLever" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Levers"
+                    give player 1 lever
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 11 of player with dispenser named "&fDispenser" with lore "&b5,000 $" to run:
+                {balance::%player's uuid%} > 5000:
+                    send "{@prefix} &7You bought 1 Dispensers"
+                    give player 1 dispenser
+                    remove 5000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 12 of player with dropper named "&fDropper" with lore "&b5,000 $" to run:
+                {balance::%player's uuid%} > 5000:
+                    send "{@prefix} &7You bought 1 Droppers"
+                    give player 1 dropper
+                    remove 5000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 13 of player with redstone repeater named "&fObserver" with lore "&b50,000 $" to run:
+                {balance::%player's uuid%} > 50000:
+                    send "{@prefix} &7You bought 1 Observers"
+                    give player 1 observer
+                    remove 50000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 14 of player with stone pressure plate named "&fStone Pressure Plate" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Stone Pressure Plates"
+                    give player 1 stone pressure plate
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 15 of player with redstone lamp named "&fRedstone Lamp" with lore "&b1,250 $" to run:
+                {balance::%player's uuid%} > 1250:
+                    send "{@prefix} &7You bought 1 Redstone Lamps"
+                    give player 1 redstone lamp
+                    remove 1250 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 16 of player with trapped chest named "&fTrapped Chest" with lore "&b5,000 $" to run:
+                {balance::%player's uuid%} > 5000:
+                    send "{@prefix} &7You bought 1 Trapped Chests"
+                    give player 1 trapped chest
+                    remove 5000 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 17 of player with light weighted pressure plate named "&fLight Weighted Pressure Plate" with lore "&b2,750 $" to run:
+                {balance::%player's uuid%} > 2750:
+                    send "{@prefix} &7You bought 1 light Weighted Pressure Plates"
+                    give player 1 light weighted pressure plate
+                    remove 2750 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 18 of player with heavy weighted pressure plate named "&fHeavy Weighted Pressure Plate" with lore "&b2,500 $" to run:
+                {balance::%player's uuid%} > 2500:
+                    send "{@prefix} &7You bought 1 Heavy Weighted Pressure Plates"
+                    give player 1 heavy weighted pressure plate
+                    remove 2500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 19 of player with daylight detector named "&fDaylight Detector" with lore "&b2,500 $" to run:
+                {balance::%player's uuid%} > 2500:
+                    send "{@prefix} &7You bought 1 Daylight Detectors"
+                    give player 1 daylight detector
+                    remove 2500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+            format gui slot 20 of player with iron trapdoor named "&fIron Trapdoor" with lore "&b3,500 $" to run:
+                {balance::%player's uuid%} > 3500:
+                    send "{@prefix} &7You bought 1 Iron Trapdoors"
+                    give player 1 iron trapdoor
+                    remove 3500 from {balance::%player's uuid%}
+                    close player's inventory
+                else:
+                    send "{@prefix} &7You dont have enough money to buy this."
+
+
+
+        format gui slot 16 of player with sunflower named "&5&lBuycraft Store" to run:
+            execute player command "/buy"
+        format gui slot 22 of player with barrier named "&cExit Shop" to close
+
+
+
+
+
+
+options:
+    prefix: &e&lRENAME &8»
+
+command /rename [<text>]:
+    permission: wsma.rename
+    permission message: &cNo permission.
+    trigger:
+        if arg-1 is set:
+            if player's tool is not air:
+                set name of player's tool to "%colored arg-1%"
+                send "{@prefix} &7You have set the name of your tool to %colored arg-1%"
+            else:
+                send "{@prefix} &7You have to hold an item to do this."
+        else:
+            send "{@prefix} &7Please provide a name"
+
+command /resetmoney:
+    permission: wsma.resetmoney
+    trigger:
+        set {balance::%player's uuid%} to 0

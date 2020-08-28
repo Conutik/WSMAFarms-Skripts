@@ -1,0 +1,135 @@
+command /feed [<player>]:
+  permission: wsma.feed
+  permission message: &cNo permission.
+  trigger:
+    arg 1 is not set:
+      send "&bYou have to select an player."
+      stop trigger
+    arg 1 is set:
+      arg 1 is not online:
+        send "&bThis player is not online."
+        stop trigger
+    arg 1 is set:
+      arg 1 is online:
+        send "&bYou got feeded by %player%" to arg 1
+        send "&b%arg 1% &bgot feeded."
+        set food level of arg 1 to 20
+
+
+
+
+
+every 1 second:
+	loop all players:
+		{reports.%loop-player's uuid%} is not set:
+			set {reports.%loop-player's uuid%} to 0
+
+
+command /history [<player>]:
+  permission: wsma.history
+  permission message: &CNo permisison.
+  trigger:
+    arg 1 is not set:
+      send "&bPlease select a player."
+      stop trigger
+    else:
+      send "&b&m------------------------"
+      send formatted "<command:/reports %arg 1%>&bClick here to check their reports.<reset>"
+      send formatted "<command:/banhistory %arg 1%>&bClick here to check their bans, mutes etc.<reset>"
+      send formatted "<command:/warnhistory %arg 1%>&bClick here to check their warns.<reset>"
+      send "&b&m------------------------"
+
+
+
+command /banhistory [<player>]:
+  permission: wsma.history
+  permission message: &CNo permission.
+  trigger:
+    send "&b&m------------------------"
+    send "&7Coming soon."
+    send "&b&m------------------------"
+
+
+
+command /reports [<player>]:
+  permission: wsma.history
+  permission message: &CNo permisison.
+  trigger:
+    send "&b&m------------------------"
+    send "&bReports for %arg 1%&b: &c%{reports.%arg 1's uuid%}%"
+    send "&b&m------------------------"
+
+command /report [<player>] [<text>]:
+  cooldown: 5 seconds
+  cooldown message: &cPlease do not spam this.
+  trigger:
+    arg 1 is not set:
+      send "&bWrong usage, example: /report liam hacks"
+      stop trigger
+    arg 1 is set:
+      arg 2 is not set:
+        send "&bWrong usage, example: /report liam hacks"
+        stop trigger
+    arg 1 is set:
+      arg 2 is set:
+        loop all players:
+          if loop-player has permission "wsma.reportnotifications":
+            send "&c&m-----------------" to loop-player
+            send "&c%player% &creported %arg 1%" to loop-player
+            send "&cReason: &c%arg 2%" to loop-player
+            send "&c&m-----------------" to loop-player
+          send " " to player
+          send "&bYou reported %arg 1%" to player
+          send " " to player
+          add 1 to {reports.%arg 1's uuid%}
+          stop
+
+on join:
+	wait 1 tick
+	create bossbar titled "&b&lWELCOME %PLAYER% &b&lTO WSMAFARMS!" and id "1" for player with progress 100 with colors blue
+	wait 10 seconds
+	remove bossbar "1"
+
+every 1 second:
+	loop all players:
+		{warns.%loop-player's uuid%} is not set:
+			set {warns.%loop-player's uuid%} to 0
+
+command /warn [<player>] [<text>]:
+  permission: wsma.warn
+  permission message: &cNo permission.
+  trigger:
+    arg 1 is not set:
+      send "&bWrong usage. /warn (player) &b(reason)"
+      stop trigger
+    arg 1 is set:
+      arg 2 is not set:
+        send "&bWrong usage. /warn %arg 1% &b(reason)"
+        stop trigger
+    arg 1 is set:
+      arg 2 is set:
+        loop all players:
+          if loop-player has permission "wsma.history":
+            send "&b%player% &ewarned &b%arg 1% &efor &b%arg 2%" to loop-player
+      add 1 to {warns.%arg 1's uuid%}
+      send "&bYou got warned by %player%&b." to arg 1
+      send "&bReason: %arg 2%" to arg 1
+      send "&bYou warned %arg 1% &bfor %arg 2%"
+
+command /warnhistory [<player>]:
+  permission: wsma.history
+  permission message: &cNo permission.
+  trigger:
+    arg 1 is not set:
+      send "&BYou have to select an player."
+    else:
+      send "&b&m------------------------"
+      send "&bWarns for %arg 1%&b: &c%{warns.%arg 1's uuid%}%"
+      send "&b&m------------------------"
+
+
+
+on chat:
+    if message contains "<3":
+        if player has permission "donor.use" or "staff.use":
+            replace all "<3" with "❤" in message

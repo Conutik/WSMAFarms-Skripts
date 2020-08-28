@@ -1,0 +1,134 @@
+command /staff:
+  permission: wsma.staff
+  permission message: &CNo permission.
+  trigger:
+    open virtual chest with 3 rows named "&a&lSTAFF" to player
+    format gui slot 0,1,2,3,4,5,6,7,8,18,19,20,21,22,23,24,25,26,27,28 of player with shiny black stained glass pane named "&7" to do nothing
+    format gui slot 12 of player with book named "&b&lMESSAGES &7(RIGHT CLICK)" to run:
+      open virtual chest with 3 rows named "&c&lMESSAGES" to player
+      format gui slot 0,1,2,3,4,5,6,7,8,18,19,20,21,22,23,24,25,26,27,28 of player with shiny black stained glass pane named "&7" to do nothing
+      format gui slot 12 of player with book named "&cHacker &7(LEFT CLICK)" with lore "&7Click here to send this message." and "&7If you find any hackers, use &b/report (player) (reason)" to run:
+        close player's inventory
+        wait 1 tick
+        make player say "&7If you find any hackers, use &b/report (player) (reason)"
+        send "&bMessage sent."
+      format gui slot 13 of player with book named "&cDiscord Server &7(LEFT CLICK)" with lore "&7Click here to send this message." and "&7" and "&7Link to our discord server: https://discord.gg/gtqf7ed" to run:
+        close player's inventory
+        wait 1 tick
+        make player say "&7Link to our discord server: &bhttps://discord.gg/gtqf7ed"
+        send "&bMessage sent."
+      format gui slot 14 of player with book named "&cSupport &7(RIGHT CLICK)" with lore "&7Click here to send this message." and "&7" and "&7If you need any support, go into our discord: &bhttps://discord.gg/gtqf7ed" to run:
+        close player's inventory
+        wait 1 tick
+        make player say "&7If you need any support, go into our discord: &ehttps://discord.gg/gtqf7ed"
+        send "&bMessage sent."
+
+
+    format gui slot 13 of player with sunflower named "&6&l&oSTAFFMODE" to run:
+      if {staffmode.%player's uuid%} is not set:
+        execute player command "/sc I am now in staffmode."
+        close player's inventory
+        send "&bStaff mode enabled."
+        send title "&c&lSTAFF MODE" with subtitle "&aON"
+        set {staffmode.%player's uuid%} to true
+        set player's flight mode to true
+        execute player command "/vanish"
+        set slot 8 of player's inventory to diamond named "&c&LEXIT STAFFMODE &7(RIGHT CLICK)"
+        set slot 4 of player's inventory to stick named "&c&lFREEZE &7(RIGHT CLICK)"
+        equip player with diamond chestplate named "&c&lSTAFFMODE"
+      else:
+        execute player command "/sc I am no longer in staffmode."
+        send "&bStaff mode disabled."
+        delete {staffmode.%player's uuid%}
+        send title "&c&lSTAFF MODE" with subtitle "&cOFF"
+        execute player command "/vanish"
+        clear player's inventory
+        teleport player to {spawn}
+        set player's flight mode to false
+
+
+on right click with stick:
+    if player has permission "wsma.staff":
+        {staffmode.%player's uuid%}  = true:
+            execute player command "/freeze %clicked player%"
+
+
+
+
+
+
+on right click with diamond:
+  {staffmode.%player's uuid%} = true:
+    send "&bStaff mode disabled."
+    delete {staffmode.%player's uuid%}
+    send title "&c&lSTAFF MODE" with subtitle "&cOFF"
+    execute player command "/vanish"
+    clear player's inventory
+    teleport player to {spawn}
+    set player's flight mode to false
+
+
+command /freeze [<player>]:
+  permission: wsma.freeze
+  permission message: &cNo permission.
+  trigger:
+    arg 1 is player:
+      send "&cYou cant freeze yourself."
+      stop trigger
+    arg 1 is not set:
+      send "&cYou have to select a player to freeze."
+      stop trigger
+    else:
+      arg 1 is set:
+        if {frozen.%arg 1's uuid%} = false:
+          set {frozen.%arg 1's uuid%} to true
+          send "&c%arg 1% &cgot frozen."
+          send "&cYou got frozen by %player%" to arg 1
+          teleport arg 1 to {spawn}
+        else:
+          set {frozen.%arg 1's uuid%} to false
+          send "&c%arg 1% &cgot unfrozen."
+          send "&cYou got unfrozen." to arg 1
+          clear arg 1's inventory
+
+
+
+
+
+on drop:
+  {frozen.%player's uuid%} = true:
+    cancel event
+
+on pickup:
+  {frozen.%player's uuid%}  = true:
+    cancel event
+
+
+on command:
+  {frozen.%player's uuid%} = true:
+    cancel event
+    send "&cYou cant do commands whilst frozen."
+
+on quit:
+  {frozen.%player's uuid%} = true:
+    loop all players:
+      if loop-player has permission "wsma.freeze":
+        send formatted "<command:/banafterleft %player%>&c%player% &cleft while frozen. &b[CLICK HERE TO BAN]<reset>" to loop-player
+
+
+
+
+command /banafterleft [<player>]:
+  permission: wsma.freeze
+  permission message: &cNo permission.
+  trigger:
+    execute player command "/ban %arg 1% &cLeft while frozen."
+    wait 2 seconds
+    send "&b%arg 1% &bgot banned."
+
+
+on any movement:
+  {frozen.%player's uuid%} = true:
+    cancel event
+  else:
+    uncancel event

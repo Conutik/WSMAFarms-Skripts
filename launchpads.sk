@@ -1,0 +1,135 @@
+Command /ladders <text>:
+    permission: op
+    permission message: &6Sorry! custom command!
+    trigger:
+        if arg-1 is "on":
+            set {on} to true
+            send "&6Fast Ladders are &lON!" to player
+            while {on} is true:
+                loop all players:
+                    if block at loop-player is ladder:
+                        push loop-player up at speed .5
+                    wait 1.3 ticks
+        if arg-1 is "off":
+            send "&6Fast Ladders are &lOFF!" to player
+            set {on} to false
+
+command /jumppads <text>:
+	permission: op
+	trigger:
+		if arg-1 is "on":
+			set {jump} to true
+			set {swirl} to true
+			send "&3Jump pads are on!" to player
+		if arg-1 is "off":
+			set {jump} to false
+			set {swirl} to false
+			send "&3Jump pads are off!" to player
+on walk on blue carpet:
+	if {jump} is true:
+		push player up at speed 1
+		push player forward at speed 2.5
+on walk on red carpet:
+	if {swirl} is true:
+		if {%player%.swirll} is true:
+			set {%player%.swirll} to false
+			set {_l} to player's location
+			set {_yaw} to yaw of player
+			set yaw of {_l} to {_yaw} + 20
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 40
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 60
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 80
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 100
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 120
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 140
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 160
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 180
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 200
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 220
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 240
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 260
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 280
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 300
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 320
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 340
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			wait 1 ticks
+			set yaw of {_l} to {_yaw} + 360
+			set pitch of {_l} to 0
+			teleport player to {_l}
+			push player forward at speed 1
+			wait 30 ticks
+			set {%player%.swirll} to true
+
+variables:
+	{%player%.swirll} = true
+
+
+on damage:
+    damage cause is fall:
+        cancel event
+
+
+
+
+command /boostpads <text>:
+	permission: op
+	trigger:
+		if arg-1 is "on":
+			set {speed} to true
+			send "&3Boost pads are on!" to player
+		if arg-1 is "off":
+			set {speed} to false
+			send "&3Boost pads are off!" to player
+on walk on light gray carpet:
+	if {speed} is true:
+		push player forward at speed 3

@@ -1,0 +1,94 @@
+options:
+    prefix: &6&lCHALLENGES &8»
+
+command /challenges1:
+	permission: op
+	permission message: &cNot finished.
+	trigger:
+		open virtual chest with 3 rows named " " to player
+		format gui slot 10 of player with cobblestone named "&7&lCOBBLESTONE CHALLENGE" with lore "&fReward: &b$2500 & 1 Level" and "&7To complete this challenge, you have to mine 30 cobblestone." to run:
+			close player's inventory
+			if {cooldown.%player's uuid%} is true:
+				send "&bYou have already did this challenge or you are in it now."
+				stop
+			else:
+				set {actionbar.%player%} to true
+				set {cobblestone::challenge::%player's uuid%::ch} to true
+				set {cooldown.%player's uuid%} to true
+				set {minedblocks::challenge::cobblestone::%player's uuid%} to 0
+				send "{@prefix} &bYou are now doing the &7&lCobbleStone &bchallenge."
+				broadcast "{@prefix} &e%player% &7is now doing the &7cobblestone &bchallenge."
+				wait 2 minutes
+				set {cooldown.%player's uuid%} to false
+
+
+every 1 second:
+	loop all players:
+		{actionbar.%loop-player%} = true:
+			send action bar "&aYou are currently doing the cobblestone challenge. &fMined Blocks: %{minedblocks::challenge::cobblestone::%loop-player's uuid%}%" to loop-player
+
+command /dhauidhwauidwahda:
+	permission: op
+	trigger:
+		set {actionbar.%player%} to false
+		set {cobblestone::challenge::%player's uuid%::ch} to false
+
+
+
+
+on left click on cobblestone:
+	if {cobblestone::challenge::%player's uuid%::ch} = true:
+		add 1 to {minedblocks::challenge::cobblestone::%player's uuid%}
+		send "{@prefix} &FCobblestone mined. Counter: &b%{minedblocks::challenge::cobblestone::%player's uuid%}%"
+
+		if {minedblocks::challenge::cobblestone::%player's uuid%} > 29:
+			set {actionbar.%player%} to false
+			set {cobblestone::challenge::%player's uuid%::ch} to false
+			broadcast "{@prefix} &e%player% &fcompleted the &7cobblestone challenge! &fTry it yourself by typing /challenges!"
+			send title "&7&lCOBBLESTONE CHALLENGE FINISHED"
+			send "{@prefix} &7You completed the cobblestone challenge."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+every 1 second:
+	loop all players:
+		if {balance::%loop-player's uuid%} is not set:
+			set {balance::%loop-player's uuid%} to 0
+
+
+
+
+
+
+
+
+
+
+
+on join:
+	wait 1 second
+	execute player command "/spawn"

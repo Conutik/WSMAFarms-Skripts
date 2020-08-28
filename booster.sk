@@ -1,0 +1,37 @@
+command /globalbooster:
+	permission: global.booster
+	trigger:
+		add 1 to {queue.globalbooster.%player's uuid%}
+		set {globalbooster} to true
+		send title "&d&lGLOBAL" to player for 1 second
+		wait 1.5 seconds
+		send title "&d&lBOOSTER" to player for 1 second
+		wait 1.5 seconds
+		send title "&d&lENABLED" to player for 1 second
+		broadcast "&d&lGLOBAL BOOSTER &7| &bEnabled for 15 minutes."
+		wait 15 minutes
+		delete {globalbooster}
+		broadcast "&d&lGLOBAL BOOSTER &7| &bDisabled"
+		send title "&d&lGLOBAL" to player for 1 second
+		wait 1.5 seconds
+		send title "&d&lBOOSTER" to player for 1 second
+		wait 1.5 seconds
+		send title "&d&lDISABLED" to player for 1 second
+		remove 1 from {queue.globalbooster.%player's uuid%}
+
+on command "/globalbooster":
+	if {queue.globalbooster.%player's uuid%} > 0:
+		cancel event
+		send "&7You already have an active booster, please wait."
+		stop trigger
+
+
+command /disableglobalbooster:
+	permission: global.booster.disable
+	trigger:
+		{globalbooster} = true:
+			delete {globalbooster}
+			send title "&5&lGLOBAL BOOSTER DISABLED" with subtitle "&d&lA Admin Force Disabled The Global Booster" to player for 2 seconds
+			broadcast "&d&lGLOBAL BOOSTER &7| &bAn Admin Force Disabled The Global Booster"
+		else:
+			send "&bYou have no active booster on right now."

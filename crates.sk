@@ -1,0 +1,97 @@
+command crates:
+  aliases: crates
+  trigger:
+    open virtual chest inventory with size 3 named "&6Crates" to player
+    format gui slot 11 of player with glowing tripwire hook named "&7&l&oShadow" with lore " " and "&7Click To open this Crate!" and "&7You Have %{shadow::amount::%player's uuid%}% keys!" to close:
+      if {shadow::amount::%player's uuid%} > 0:
+        crate(player, "shadow")
+      else:
+        send "&4You do not have enough keys!"
+    format gui slot 13 of player with glowing tripwire hook named "&c&l&oEclipse" with lore " " and "&7Click To open this Crate!" and "&7You Have %{eclipse::amount::%player's uuid%}% keys!" to close:
+      if {eclipse::amount::%player's uuid%} > 0:
+        crate(player, "eclipse")
+      else:
+        send "&4You do not have enough keys!"
+    format gui slot 15 of player with glowing tripwire hook named "&6&l&oFreight" with lore " " and "&7Click To open this Crate!" and "&7You Have %{freightt::amount::%player's uuid%}% keys!" to close:
+      if {freight::amount::%player's uuid%} > 0:
+        crate(player, "freight")
+      else:
+        send "&4You do not have enough keys!"
+
+function crate(p: player, k: text):
+  open virtual chest inventory with size 3 named "&6%{_k}%" to {_p}
+  set {_e} to 0
+  loop 14 times:
+    format gui slot {_e} of {_p} with glowing blue stained glass pane named "&7"
+    add 2 to {_e}
+  set {_e} to 1
+  loop 13 times:
+    format gui slot {_e} of {_p} with glowing white stained glass pane named "&7"
+    add 2 to {_e}
+  loop 10 times:
+    set {_prize} to random element out of {%{_k}%::prize::*}
+    format gui slot 13 of {_p} with {_prize}
+    wait 10 ticks
+  close {_p}'s inventory
+  send "&a&lCRATES: &eYou Have Won %{_prize}% from a(n) %{_k}% key!" to {_p}
+  give {_p} {_prize}
+
+command crategive [<player>] [<string>] [<string>]:
+  permission: crate.all
+  trigger:
+    if arg-1 is set:
+      if arg-2 is set:
+        if arg-2 is "Shadow" or "shadow":
+          add 1 to {shadow::amount::%arg-1's uuid%}
+          send "&aPlayer has gotten a Shadow Key!" to player
+        else if arg-2 is "Eclipse" or "eclipse":
+          add 1 to {eclipse::amount::%arg-1's uuid%}
+          send "&aPlayer has gotten an Eclipse Key!" to player
+        if arg-2 is "Frieght" or "frieght":
+          add 1 to {frieght::amount::%arg-1's uuid%}
+          send "&aPlayer has gotten a Frieght Key!" to player
+      else:
+        send "&aUsage: /crategive (player) (type)" to player
+    else:
+      send "&aUsage: /crategive (player) (type)" to player
+
+command crateadd [<string>]:
+  permission: crate.all
+  trigger:
+    if arg-1 is set:
+      if arg-1 is "Shadow" or "shadow":
+        open virtual chest inventory with size 3 named "5463541" to player
+      else if arg-1 is "Eclipse" or "eclipse":
+        open virtual chest inventory with size 3 named "5463542" to player
+      else if arg-1 is "Frieght" or "frieght":
+        open virtual chest inventory with size 3 named "5463543" to player
+    else:
+      send "&c&lERROR: &ePlease Mention Crate Type!" to player
+
+on inventory close:
+  if name of event-inventory is "5463541":
+    loop all items in event-inventory:
+      if loop-item is air:
+        wait 1 tick
+      else:
+        add loop-item to {shadow::prize::*}
+    send "&a&lAdded" to player
+  else if name of event-inventory is "5463542":
+    loop all items in event-inventory:
+      if loop-item is air:
+        wait 1 tick
+      else:
+        add loop-item to {eclipse::prize::*}
+    send "&a&lAdded" to player
+  else if name of event-inventory is "5463543":
+    loop all items in event-inventory:
+      if loop-item is air:
+        wait 1 tick
+      else:
+        add loop-item to {freight::prize::*}
+    send "&a&lAdded" to player
+
+on first join:
+  set {freight::amount::%player's uuid%} to 0
+  set {eclipse::amount::%player's uuid%} to 0
+  set {shadow::amount::%player's uuid%} to 0
