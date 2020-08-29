@@ -1,0 +1,117 @@
+on load:
+    if {ptHoloLoc} is set:
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+        make console execute command "/forceptholo"
+
+command /setptholo:
+    permission: leaderboards.sk
+    trigger:
+        set {ptHoloLoc} to player's location
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+
+command /forceptholo:
+    permission: leaderboards.sk
+    trigger:
+        loop all players:
+            set {playtimeLb::%loop-player%} to {Playtime.minutes::%uuid of loop-player%}
+        loop {playtimeLb::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        if {ptHolo} is set:
+            delete holo {ptHolo}
+            delete {ptHolo}
+        create holo with lines "&7-=+=- &6Playtime Top &7-=+=-" and "&7---------------" at {ptHoloLoc} and store it in {ptHolo} # For design, change this
+        loop {_high.to.low.list::*}:
+            add 1 to {_result}
+            insert line "&a%loop-value parsed as offline player%&8 | &e%{playtimeLb::%loop-value%}%&em" in {ptHolo} at line {_result} + 1 # For design, change this
+            if {_result} is 10:
+                stop
+
+
+# ------------- Balance Top Leaderboard -------------
+
+on load:
+    if {balHoloLoc} is set:
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo}
+        make console execute command "/forcebalholo"
+
+every 10 minutes:
+    make console execute command "/forcebalholo"
+    make console execute command "/forceptholo"
+
+command /deleteholos:
+    permission: leaderboards.sk
+    trigger:
+        delete all holograms
+        if {balHolo} is set:
+            delete {balHolo}
+        if {ptHolo} is set:
+            delete {ptHolo}
+
+command /setbalholo:
+    permission: leaderboards.sk
+    trigger:
+        set {balHoloLoc} to player's location
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo} # For design, change this
+
+on quit:
+    set {balanceLb::%player%} to {balance::%uuid of player%}
+    set {playtimeLb::%player%} to {Playtime.minutes.%uuid of player%}
+
+command /forcebalholo:
+    permission: leaderboards.sk
+    trigger:
+        loop all players:
+            set {balanceLb::%loop-player%} to {balance::%uuid of loop-player%}
+        loop {balanceLb::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        if {balHolo} is set:
+            delete holo {balHolo}
+            delete {balHolo}
+        create holo with line "&7-=+=- &6Balance Top &7-=+=-" and "&7---------------" at {balHoloLoc} and store it in {balHolo} # For design, change this
+        loop {_high.to.low.list::*}:
+            add 1 to {_result}
+            insert line "&a%loop-value parsed as offline player% &8| &e$%{balanceLb::%loop-value%}%" in {balHolo} at line {_result} + 1 # For design, change this
+            if {_result} is 10:
+                stop

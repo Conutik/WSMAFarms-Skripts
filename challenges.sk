@@ -1,0 +1,6 @@
+options:
+	prefix: &b&lCHALLENGES &8»
+
+command /challenges:
+	trigger:
+		send "{@prefix} &b&oChallenges &7&ois coming soon."

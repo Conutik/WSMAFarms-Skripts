@@ -1,0 +1,131 @@
+options:
+  prefix: &a&lKITS &8»
+
+on join:
+	{cooldown.vipkit::%player's uuid%} > false
+	{cooldown.mvpkit::%player's uuid%} > false
+	{cooldown.veterankit::%player's uuid%} > false
+	{farmer.%uuid of player%.kit} > false
+	{farmer.%uuid of player%.kit} > false
+
+command /kits:
+  trigger:
+    open virtual chest with 1 rows named "&A&lKITS" to player
+    format gui slot 0,1,2,4,6,7,8 of player with shiny gray stained glass pane named "" to do nothing
+    format gui slot 3 of player with shiny emerald named "&a&lPremium Ranks" to run:
+      open virtual chest with 3 rows named "&a&lPREMIUM KITS" to player
+      format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
+      format gui slot 10 of player with minecart with chest named "&a&lVIP Kit" to run:
+        if player has permission "vip.kit":
+          if {cooldown.vipkit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 1 and unbreaking 2 named "&a&lVIP PICKAXE"
+            give player iron shovel of efficiency 2 and unbreaking 2 named "&a&lVIP PICKAXE"
+            set player's chestplate to iron chestplate of protection 1 named "&a&lVIP CHESTPLATE"
+            set player's boots to iron boots of protection 1 named "&a&lVIP BOOTS"
+            send "{@prefix} &7Selected &a&lVIP &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.vipkit::%player's uuid%} to true
+        else if player does not have permission "vip.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+
+
+      format gui slot 12 of player with minecart with chest named "&b&lMVP Kit" to run:
+        if player has permission "mvp.kit":
+          if {cooldown.mvpkit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 2 and unbreaking 3 named "&b&lMVP PICKAXE"
+            give player iron shovel of efficiency 3 and unbreaking 3 named "&b&lMVP PICKAXE"
+            set player's chestplate to iron chestplate of protection 2 named "&b&lMVP CHESTPLATE"
+            set player's boots to iron boots of protection 2 named "&b&lMVP BOOTS"
+            set player's helmet to iron helmet of protection 2 named "&b&lMVP HELMET"
+            send "{@prefix} &7Selected &b&lMVP &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.mvpkit::%player's uuid%} to true
+        else if player does not have permission "mvp.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+      format gui slot 14 of player with minecart with chest named "&5&lVETERAN Kit" to run:
+        if player has permission "veteran.kit":
+          if {cooldown.veterankit::%player's uuid%} is true:
+            send "{@prefix} &7| &bYou are on a cooldown."
+            stop trigger
+          else:
+            give player iron pickaxe of efficiency 3 and unbreaking 4 named "&5&lVETERAN PICKAXE"
+            give player iron shovel of efficiency 4 and unbreaking 4 named "&&5&lVETERAN PICKAXE"
+            set player's chestplate to iron chestplate of protection 3 named "&5&lVETERAN CHESTPLATE"
+            set player's leggings to iron leggings of protection 3 named "&5&lVETERAN LEGGINGS"
+            set player's boots to diamond boots of protection 3 named "&5&lVETERAN BOOTS"
+            set player's helmet to iron helmet of protection 3 named "&5&lVETERAN HELMET"
+            send "{@prefix} &7Selected &5&lVETERAN &7kit."
+            chance of 15%:
+              add 1 to {level.%player's uuid%}
+              send "&b&lRANKUP! &a&l+ 1 LEVEL"
+            set {cooldown.veterankit::%player's uuid%} to true
+        else if player does not have permission "veteran.kit":
+          send "{@prefix} &7| &bYou do not have the required permission for this kit."
+      format gui slot 16 of player with arrow named "&cBack" to run:
+        close player's inventory
+        execute player command "/kits"
+
+    format gui slot 5 of player with shiny coal named "&7&lDEFAULT KITS" to run:
+      open virtual chest with 3 rows named "&7Default Kits" to player
+      format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
+      format gui slot 10 of player with minecart with chest named "&7&lMINER" to run:
+        if {miner.%uuid of player%.kit} is true:
+          send "{@prefix} &7You are on a cooldown, and cannot use this yet."
+          stop trigger
+        else:
+          give player 1 wooden pickaxe of unbreaking 1 named "&7&lDEFAULT PICKAXE"
+          send "{@prefix} &7Miner kit selected."
+          set {miner.%uuid of player%.kit} to true
+          chance of 15%:
+            add 1 to {level.%player's uuid%}
+            send "&b&lRANKUP! &a&l+ 1 LEVEL"
+      format gui slot 12 of player with minecart with chest named "&7&lFARMER" to run:
+        if {farmer.%uuid of player%.kit} is set:
+          send "{@prefix} &7You are on a cooldown, and cannot use this yet."
+          stop trigger
+        else:
+          give player 1 wooden shovel of unbreaking 1 named "&7&lFARMER SHOVEL"
+          send "{@prefix} &7Farmer kit selected."
+          set {farmer.%uuid of player%.kit} to true
+          wait 48 hours
+          set {farmer.%uuid of player%.kit} to false
+          delete {farmer.%uuid of player%.kit}
+
+      format gui slot 16 of player with arrow named "&cBack" to run:
+        close player's inventory
+        execute player command "/kits"
+
+        every 24 hours:
+        	loop all players:
+        		{cooldown.vipkit::%loop-player's uuid%} = true:
+        			set {cooldown.vipkit::%loop-player's uuid%} to false
+
+        every 24 hours:
+        	loop all players:
+        		{farmer.%uuid of loop-player%.kit} = true:
+        			set {farmer.%uuid of loop-player%.kit} to false
+
+        every 24 hours:
+        	loop all players:
+        		{miner.%uuid of loop-player%.kit}  = true:
+        			set {miner.%uuid of loop-player%.kit} to false
+
+        every 24 hours:
+        	loop all players:
+        		{cooldown.veterankit::%loop-player's uuid%} = true:
+        			set {cooldown.veterankit::%loop-player's uuid%} to false
+
+        every 24 hours:
+        	loop all players:
+        		{cooldown.mvpkit::%loop-player's uuid%} = true:
+        			set {cooldown.mvpkit::%loop-player's uuid%} to false

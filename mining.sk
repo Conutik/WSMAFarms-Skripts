@@ -1,0 +1,160 @@
+command /upgrade:
+  trigger:
+    if player's held item is a pickaxe:
+      open virtual chest with 1 rows named "&a&lEnchant Your Tool" to player
+      format gui slot 0,1,2,4,6,7,8 of player with shiny gray stained glass pane named "" to do nothing
+      format gui slot 5 of player with shiny book named "&a&l+1 &bFortune" with lore "&e$20,000" to run:
+        if level of fortune of player's tool = 5:
+          send "&d&lWSMA&6&lFarms &7| &bYou are at the max enchant for fortune."
+        else:
+          if player's held item is a pickaxe:
+            if {balance::%player's uuid%} > 20000:
+              evaluate "enchant player's tool with fortune %level of fortune of player's tool + 1%"
+              send "&d&lWSMA&6&lFarms &7| &b+1 Fortune."
+            else:
+              send "&d&lWSMA&6&lFarms &7| &bYou do not have enough money for this enchant."
+          else if player's held item is not a pickaxe:
+            send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+      format gui slot 3 of player with shiny book named "&a&l+1 &bEfficiency" with lore "&e$5000" to run:
+        if level of efficiency of player's tool = 8:
+          send "&d&lWSMA&6&lFarms &7| &bYou are at the max enchant for efficiency."
+        else:
+          if player's held item is a pickaxe:
+            if {balance::%player's uuid%} > 5000:
+              evaluate "enchant player's tool with efficiency %level of efficiency of player's tool + 1%"
+              send "&d&lWSMA&6&lFarms &7| &b+1 Efficiency."
+            else:
+              send "&d&lWSMA&6&lFarms &7| &bYou do not have enough money for this enchant."
+          else if player's held item is not a pickaxe:
+            send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+    else if player's held item is not a pickaxe:
+      send "&d&lWSMA&6&lFarms &7| &bYou need to be holding a pickaxe."
+
+
+on break of coal ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 coal to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 coal to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 coal to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 coal to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 coal to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 coal to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of iron ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 iron ingot to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 iron ingot to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 iron ingot to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 iron ingot to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 iron ingot to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 iron ingot to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of gold ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 gold ingot to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 gold ingot to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 gold ingot to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 gold ingot to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 gold ingot to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 gold ingot to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+on break of diamond ore:
+  if player's held item is not pickaxe:
+    cancel event
+    send "&d&lWSMA&6&lFarms &7| &bYou have to hold a pickaxe to do this."
+  else:
+    cancel drops
+    set event-block to bedrock
+    if level of fortune of player's tool = 1:
+      add 2 diamond to player's inventory
+    if level of fortune of player's tool = 2:
+      add 4 diamond to player's inventory
+    if level of fortune of player's tool = 3:
+      add 6 diamond to player's inventory
+    if level of fortune of player's tool = 4:
+      add 8 diamond to player's inventory
+    if level of fortune of player's tool = 5:
+      add 10 diamond to player's inventory
+    if player's tool is not enchanted with fortune:
+      add 1 diamond to player's inventory
+    wait 3 seconds
+    set event-block to coal ore
+
+command /exchangeores:
+  trigger:
+    set {_coal} to amount of coal in player's inventory
+    add {_coal} to {_total}
+    set {_ironingot} to amount of iron ingot in player's inventory
+    add {_ironingot}*2 to {_total}
+    set {_goldingot} to amount of gold ingot in player's inventory
+    add {_goldingot}*3 to {_total}
+    set {_diamond} to amount of diamond in player's inventory
+    add {_diamond}*4 to {_total}
+    add {_total} to {level.%player's uuid%}
+    remove all coal, iron ingot, gold ingot, diamond from player's inventory
+    send "&d&lWSMA&6&lFarms &7| &bYou exchanged your items for %{_total}% &blevels"
+    wait 1 second
+    set {_total} to 0
+
+    options:
+        prefix: &a&lUPGRADES &8»
+
+    on right click:
+    	if player is sneaking:
+    		player is holding a wooden pickaxe:
+    			execute player command "/upgrade"
+
+
+
+
+    			format gui slot 12 of player with shiny book named "&eEfficiency 2" to run:
+    				close player's inventory
+    				send "{@prefix} &7Coming soon."
+    			format gui slot 13 of player with shiny book named "&eEfficiency 3" to run:
+    				close player's inventory
+    				send "{@prefix} &7Coming soon."
+    			format gui slot 14 of player with shiny book named "&eEfficiency 4" to run:
+    				close player's inventory
+    				send "{@prefix} &7Coming soon."
+    			format gui slot 15 of player with shiny book named "&eEfficiency 5" to run:
+    				close player's inventory
+    				send "{@prefix} &7Coming soon."
