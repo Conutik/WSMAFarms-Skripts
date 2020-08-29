@@ -30,15 +30,15 @@ on right click on entity:
         make player execute command "/shop"
 
 function addShopItem(i: item, n: text, c: number, s: number, p: player):
-    format gui slot 20 of {_p} with {_i} named {_n} with lore "&b%{_n}% $" to run:
-      if {balance::_p} > 3500:
-        send "{@prefix} &7You bought 1 %{_n}%"
-        set {_ni} to "%1 {_i}%" parsed as item
-        give {_p} {_ni}
-        remove {_c} from {balance::_p}
-        close {_p} inventory
-      else:
-        send "{@prefix} &7You dont have enough money to buy this."
+  format gui slot 20 of {_p} with {_i} named {_n} with lore "&b%{_n}% $" to run:
+    if {balance::_p} > 3500:
+      send "{@prefix} &7You bought 1 %{_n}%"
+      set {_ni} to "1 %{_i}%" parsed as item
+      give {_p} {_ni}
+      remove {_c} from {balance::_p}
+      close {_p} inventory
+    else:
+      send "{@prefix} &7You dont have enough money to buy this."
 
 
 command /shop:
