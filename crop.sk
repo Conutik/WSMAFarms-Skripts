@@ -66,6 +66,7 @@ on rightclick:
 		set {_n} to "%{_n}% carrot" parsed as item
 		give {_n} to player
 		cancel event
+
 on leftclick:
 	if event-block is fully grown beetroot plant:
 		set block at event-block to stage 6 beetroot plant
