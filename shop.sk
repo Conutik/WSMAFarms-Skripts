@@ -36,7 +36,7 @@ function addShopItem(i: item, n: text, c: number, s: number, p: player):
       set {_ni} to "1 %{_i}%" parsed as item
       give {_p} {_ni}
       remove {_c} from {balance::_p}
-      close {_p}'s' inventory
+      close {_p}'s inventory
     else:
       send "{@prefix} &7You dont have enough money to buy this."
 
