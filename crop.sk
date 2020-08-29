@@ -135,10 +135,3 @@ on leftclick:
 		set {_n} to "%{_n}% carrot" parsed as item
 		give {_n} to player
 		cancel event
-
-#carrots - 7
-#potatoes - 7
-#wheat - 7
-#beetroots - 3
-#nether_wart - 3
-#sweet_berry_bush - 3 to 1
