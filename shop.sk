@@ -1198,6 +1198,7 @@ command /shop:
                     close player's inventory
                 else:
                     send "{@prefix} &7You dont have enough money to buy this."
+            addShopItem(sunflower, "a fucking flower", 2000, 21, player)
 
 
 
@@ -1206,7 +1207,16 @@ command /shop:
         format gui slot 22 of player with barrier named "&cExit Shop" to close
 
 
-
+function addShopItem(i, n, c, s, p):
+  format gui slot 20 of {_p} with {_i} named {_n} with lore "&b%{_n}% $" to run:
+      {balance::_p} > 3500:
+          send "{@prefix} &7You bought 1 %{_n}%"
+          set {_ni} to "%1 {_i}%" parsed as item
+          give {_p} {_ni}
+          remove {_c} from {balance::_p}
+          close {_p} inventory
+      else:
+          send "{@prefix} &7You dont have enough money to buy this."
 
 
 
