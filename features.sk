@@ -434,7 +434,7 @@ command /buypotions:
   trigger:
     open virtual chest with 3 rows named "&a&lPOTIONS" to player
     format gui slot 0,1,2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,20,21,22,23,24,25,26 of player with gray stained glass pane named "" to do nothing
-    format gui slot 10 of player with potion of Swiftness named "&a&lSPEED POSITIONS" to run:
+    format gui slot 10 of player with potion of Swiftness named "&a&lSPEED POTIONS" to run:
       open virtual chest with 1 rows named "&a&lSPEED POTIONS" to player
       format gui slot 0,1,7,8 of player with red stained glass pane named "" to do nothing
       format gui slot 2 of player with book named "&e&o&lSPEED III FOR 8 MINUTES" with lore "&b$1500" to run:
