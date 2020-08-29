@@ -9,9 +9,6 @@ command /gang [<text>] [<text>] [<text>]:
 		arg 1 is not "help" or "invite" or "disband" or "info" or "join" or "create" or "leave":
 			send "{@prefix} &7Wrong usage, type &c&o/gang help"
 		else if arg 1 is "create":
-			if arg 2 contains "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" or "10":
-				send "{@prefix} &7You cant use numbers in the gang name."
-				stop trigger
 			if {gang.%player's uuid%} is set:
 				send "{@prefix} &7You are already in a gang named &e%{gang.%player's uuid%}%&7."
 			else:

@@ -33,6 +33,7 @@ command /staff:
         set {staffmode.%player's uuid%} to true
         set player's flight mode to true
         execute player command "/vanish"
+        clear player's inventory
         set slot 8 of player's inventory to diamond named "&c&LEXIT STAFFMODE &7(RIGHT CLICK)"
         set slot 4 of player's inventory to stick named "&c&lFREEZE &7(RIGHT CLICK)"
         equip player with diamond chestplate named "&c&lSTAFFMODE"
