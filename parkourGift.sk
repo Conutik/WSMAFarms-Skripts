@@ -2,7 +2,7 @@ options:
   prefix: &b&lREWARD &8»
 
 on right click on sign:
-	if 1st line is "Click Here":
+	if {x|y|z of event-block} is {-31|109|-30}
 		if {sign.%uuid of player%} is set:
 			send "{@prefix} &7You have already claimed your gift."
 			stop trigger
