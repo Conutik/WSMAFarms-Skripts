@@ -1,5 +1,8 @@
 on chat:
-	set chat format to "%player's prefix%%{nick.%player's uuid%}%&7 &8[&b%{level.%player's uuid%}%&8]&7: %{player.chatcolor::%player's uuid%}%%colored message%"
+	if player has permission "wsma.chatcolor":
+		set chat format to "%player's prefix%%{nick.%player's uuid%}%&7 &8[&b%{level.%player's uuid%}%&8]&7: %{player.chatcolor::%player's uuid%}%%colored message%"
+	else:
+		set chat format to "%player's prefix%%{nick.%player's uuid%}%&7 &8[&b%{level.%player's uuid%}%&8]&7: %{player.chatcolor::%player's uuid%}%%message%"
 
 
 command /bal:
