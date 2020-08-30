@@ -34,3 +34,7 @@ command /buypotions:
           send "&bYou have now Speed IIIIIII for 8 minutes."
         else:
           send "&c&oYou dont have enough money to buy this."
+	  
+on damage:
+  if victim is player:
+    cancel event
